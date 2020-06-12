@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" > 
+        <xs:element name="review">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element name="rticle_id" type="xs:string" />
+                    
+                    <xs:element name="overall_recommendation">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="accept"/>
+                                <xs:enumeration value="reject"/>
+                                <xs:enumeration value="major_revisions"/>
+                                <xs:enumeration value="minor_revisions"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    
+                    <xs:element name="questionnaire">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" name="question_element">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element minOccurs="1" name="question" type="xs:string"/>
+                                            <xs:element name="response">
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:enumeration value="strongly disagree"/>
+                                                        <xs:enumeration value="disagree"/>
+                                                        <xs:enumeration value="neutral"/>
+                                                        <xs:enumeration value="agree"/>
+                                                        <xs:enumeration value="strongly agree"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:element>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    
+                    <xs:element name="comments" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                    <xs:attribute name="refId" />
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+                    
+                    <xs:element name="confidental-comments" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                    <xs:attribute name="refId" />
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+                    
+                    <xs:element name="workflowId" type="xs:string" />
+                    
+                </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+</xs:schema>
