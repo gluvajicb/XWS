@@ -1,6 +1,7 @@
 package xmlproject.be.util.Exist;
 
 import org.exist.xmldb.EXistResource;
+import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
@@ -12,7 +13,7 @@ import xmlproject.be.util.Authentication.AuthenticationUtilities;
 import xmlproject.be.util.Authentication.AuthenticationUtilities.ConnectionProperties;
 
 
-
+@Component
 public class StoreData {
 
 private static ConnectionProperties conn;

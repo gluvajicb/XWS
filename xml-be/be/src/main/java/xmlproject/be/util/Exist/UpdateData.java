@@ -1,5 +1,6 @@
 package xmlproject.be.util.Exist;
 
+import org.springframework.stereotype.Component;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Resource;
 import org.xmldb.api.base.XMLDBException;
@@ -7,7 +8,7 @@ import org.xmldb.api.modules.XUpdateQueryService;
 
 import xmlproject.be.util.Authentication.AuthenticationUtilities;
 
-
+@Component
 public class UpdateData {
 	public static long update(String collectionId, String documentId, String contextXPath, String xmlFragment, String updateTemplate ) throws Exception
     {

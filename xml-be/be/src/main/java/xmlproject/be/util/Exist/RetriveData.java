@@ -1,5 +1,6 @@
 package xmlproject.be.util.Exist;
 
+import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
@@ -10,6 +11,7 @@ import org.xmldb.api.modules.XPathQueryService;
 import xmlproject.be.util.Authentication.*;
 import xmlproject.be.util.Authentication.AuthenticationUtilities.ConnectionProperties;
 
+@Component
 public class RetriveData {
 	/**
      * conn XML DB connection properties args[0] Should be the collection ID to

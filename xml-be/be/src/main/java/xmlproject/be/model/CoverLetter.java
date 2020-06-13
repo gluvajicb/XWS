@@ -183,4 +183,6 @@ public class CoverLetter {
         this.id = value;
     }
 
+	
+
 }
