@@ -8,6 +8,10 @@ import RegisterPage from '@/components/homepage/RegisterPage'
 
 /* Author */
 import AuthorHomePage from '@/components/author/HomePage'
+import AuthorAdvancedSearch from '@/components/author/AdvancedSearch'
+import AuthorMyArticles from '@/components/author/MyArticles'
+import AuthorAddArticle from '@/components/author/AddArticle'
+
 
 Vue.use(Router)
 
@@ -34,6 +38,18 @@ export default new Router({
                 {
                     path: 'homepage',
                     component: AuthorHomePage
+                },
+                {
+                    path: 'advanced-search',
+                    component: AuthorAdvancedSearch
+                },
+                {
+                    path: 'my-articles',
+                    component: AuthorMyArticles
+                },
+                {
+                    path: 'add-article',
+                    component: AuthorAddArticle
                 }
             ]
         }
