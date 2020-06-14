@@ -13,6 +13,12 @@ import AuthorMyArticles from '@/components/author/MyArticles'
 import AuthorAddArticle from '@/components/author/AddArticle'
 import AuthorIndexPage from '@/components/author/IndexPage'
 
+/* Reviewer */
+import ReviewerHomePage from '@/components/reviewer/HomePage'
+import ReviewerAdvancedSearch from '@/components/reviewer/AdvancedSearch'
+import ReviewerMyArticles from '@/components/reviewer/MyArticles'
+import ReviewerAddArticle from '@/components/reviewer/AddArticle'
+import ReviewerIndexPage from '@/components/reviewer/IndexPage'
 
 Vue.use(Router)
 
@@ -20,7 +26,7 @@ export default new Router({
     mode: 'history',
     
     routes: [
-        
+
         /* Index Routes */
         {
             path: '/',
@@ -56,6 +62,29 @@ export default new Router({
         {
             path: '/author/:id/add-article',
             component: AuthorAddArticle
+        },
+
+
+        /* Reviewer Routes */
+        {
+            path: '/reviewer/:id',
+            component: ReviewerIndexPage
+        },
+        {
+            path: '/reviewer/:id/homepage',
+            component: ReviewerHomePage
+        },
+        {
+            path: '/reviewer/:id/advanced-search',
+            component: ReviewerAdvancedSearch
+        },
+        {
+            path: '/reviewer/:id/my-articles',
+            component: ReviewerMyArticles
+        },
+        {
+            path: '/reviewer/:id/add-article',
+            component: ReviewerAddArticle
         }
 
         /* TREBALO BI DA BUDE OVAKO, ALI IMA BUG, JER PRIHVATA SAMO INDEXPAGE, NI JEDNU DRUGU
