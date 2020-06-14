@@ -5,12 +5,12 @@
             <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-header">
-                        <a class="navbar-brand" v-on:click="redirect">Scientific Articles</a>
+                        <a class="navbar-brand" v-on:click="redirect"><b>Scientific Articles</b></a>
                     </div>  
                     <ul class="navbar-nav mr-auto">
-                        <a class="nav-item nav-link"><h4>Home</h4></a>
-                        <a class="nav-item nav-link"><h4>Advanced Search</h4></a>
-                        <a class="nav-item nav-link"><h4>My Articles</h4></a>
+                        <a class="nav-item nav-link"><h4>Home |</h4></a>
+                        <a class="nav-item nav-link"><h4>Advanced Search |</h4></a>
+                        <a class="nav-item nav-link"><h4>My Articles |</h4></a>
                         <a class="nav-item nav-link"><h4>Add Article</h4></a>
                     </ul>
                     <div id="logout"><a class="nav-item nav-link"><h4>Logout</h4></a></div>
@@ -54,15 +54,6 @@
 
 <style scoped>
 
-#selectedFile{
-    position: fixed;
-    top: 16%;
-    left: 10px;
-    z-index: 999;
-    width: 15%;
-    height: 45px;
-}
-
 #chooseFile{
     position: fixed;
     top: 12%;
@@ -94,17 +85,6 @@
 
 #logout{
    float: right;
-}
-
-#searchComponent{
-    opacity: 0.9;
-
-    position: fixed;
-    top: 10%;
-    left: 0;
-    z-index: 999;
-    width: 100%;
-    height: 23px;
 }
 
 </style>
