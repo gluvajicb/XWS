@@ -48,7 +48,7 @@ export default {
 
 
 #registerForm{
-  opacity: 0.8;
+  opacity: 0.9;
   display: inline-block;
   
 }

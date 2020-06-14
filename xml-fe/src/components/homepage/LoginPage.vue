@@ -65,7 +65,7 @@ export default {
 <style scoped>
 
 #loginForm{
-  opacity: 0.8;
+  opacity: 0.9;
   display: inline-block;
   
 }

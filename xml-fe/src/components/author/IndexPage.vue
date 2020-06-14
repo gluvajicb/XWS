@@ -18,18 +18,6 @@
             </nav>
         </div>
         <!-- NAVBAR -->
-        
-
-        <!-- Search Component -->
-        <div id="searchComponent"> 
-            <b-col lg="2">
-                <b-input-group>      
-                    <b-form-input size="lg" placeholder="Enter Text..." v-model="searchInput"></b-form-input>
-                    <span><b-button size="lg">Search</b-button></span>
-                </b-input-group>
-            </b-col>
-        </div>
-        <!-- Search Component -->
 
         
         <div>

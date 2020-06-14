@@ -11,6 +11,7 @@ import AuthorHomePage from '@/components/author/HomePage'
 import AuthorAdvancedSearch from '@/components/author/AdvancedSearch'
 import AuthorMyArticles from '@/components/author/MyArticles'
 import AuthorAddArticle from '@/components/author/AddArticle'
+import AuthorIndexPage from '@/components/author/IndexPage'
 
 
 Vue.use(Router)
@@ -19,6 +20,8 @@ export default new Router({
     mode: 'history',
     
     routes: [
+        
+        /* Index Routes */
         {
             path: '/',
             component: IndexPage,
@@ -31,9 +34,34 @@ export default new Router({
             path: '/register',
             component: RegisterPage
         },
+
+
+        /* Author Routes */
+        {
+            path: '/author/:id',
+            component: AuthorIndexPage
+        },
+        {
+            path: '/author/:id/homepage',
+            component: AuthorHomePage
+        },
+        {
+            path: '/author/:id/advanced-search',
+            component: AuthorAdvancedSearch
+        },
+        {
+            path: '/author/:id/my-articles',
+            component: AuthorMyArticles
+        },
+        {
+            path: '/author/:id/add-article',
+            component: AuthorAddArticle
+        }
+
+        /* TREBALO BI DA BUDE OVAKO, ALI IMA BUG, JER PRIHVATA SAMO INDEXPAGE, NI JEDNU DRUGU
         {
             path: '/author/:id/',
-            component: AuthorHomePage,
+            component: AuthorIndexPage,
             children: [
                 {
                     path: 'homepage',
@@ -53,5 +81,6 @@ export default new Router({
                 }
             ]
         }
+        */
     ]
 })
