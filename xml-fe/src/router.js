@@ -20,6 +20,14 @@ import ReviewerMyArticles from '@/components/reviewer/MyArticles'
 import ReviewerAddArticle from '@/components/reviewer/AddArticle'
 import ReviewerIndexPage from '@/components/reviewer/IndexPage'
 
+/* Editor */
+import EditorHomePage from '@/components/editor/HomePage'
+import EditorAdvancedSearch from '@/components/editor/AdvancedSearch'
+import EditorMyArticles from '@/components/editor/MyArticles'
+import EditorAddArticle from '@/components/editor/AddArticle'
+import EditorIndexPage from '@/components/editor/IndexPage'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -85,9 +93,32 @@ export default new Router({
         {
             path: '/reviewer/:id/add-article',
             component: ReviewerAddArticle
+        },
+
+
+        /* Editor Routes */
+        {
+            path: '/editor/:id',
+            component: EditorIndexPage
+        },
+        {
+            path: '/editor/:id/homepage',
+            component: EditorHomePage
+        },
+        {
+            path: '/editor/:id/advanced-search',
+            component: EditorAdvancedSearch
+        },
+        {
+            path: '/editor/:id/my-articles',
+            component: EditorMyArticles
+        },
+        {
+            path: '/editor/:id/add-article',
+            component: EditorAddArticle
         }
 
-        /* TREBALO BI DA BUDE OVAKO, ALI IMA BUG, JER PRIHVATA SAMO INDEXPAGE, NI JEDNU DRUGU
+        /* AUTHOR | TREBALO BI DA BUDE OVAKO, ALI IMA BUG, JER PRIHVATA SAMO INDEXPAGE, NI JEDNU DRUGU
         {
             path: '/author/:id/',
             component: AuthorIndexPage,
