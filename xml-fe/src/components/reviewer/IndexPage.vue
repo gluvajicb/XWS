@@ -8,10 +8,10 @@
                         <a class="navbar-brand" v-on:click="redirect"><b>Scientific Articles</b></a>
                     </div>  
                     <ul class="navbar-nav mr-auto">
-                        <a class="nav-item nav-link"><h4>Home |</h4></a>
-                        <a class="nav-item nav-link"><h4>Advanced Search |</h4></a>
-                        <a class="nav-item nav-link"><h4>My Articles |</h4></a>
-                        <a class="nav-item nav-link"><h4>Add Article |</h4></a>
+                        <a class="nav-item nav-link" href="/reviewer/1/homepage"><h4>Home |</h4></a>
+                        <a class="nav-item nav-link" href="/reviewer/1/advanced-search"><h4>Advanced Search |</h4></a>
+                        <a class="nav-item nav-link" href="/reviewer/1/my-articles"><h4>My Articles |</h4></a>
+                        <a class="nav-item nav-link" href="/reviewer/1/add-article"><h4>Add Article |</h4></a>
                         <a class="nav-item nav-link"><h4>To Review</h4></a>
                     </ul>
                     <div id="logout"><a class="nav-item nav-link"><h4>Logout</h4></a></div>
