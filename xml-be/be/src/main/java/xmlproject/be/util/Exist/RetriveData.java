@@ -13,58 +13,45 @@ import xmlproject.be.util.Authentication.AuthenticationUtilities.ConnectionPrope
 
 @Component
 public class RetriveData {
-	/**
-     * conn XML DB connection properties args[0] Should be the collection ID to
-     * access
-     */
-    public static ResourceSet executeXPathExpression(String collectionId, String xpathExp, String TARGET_NAMESPACE) throws Exception {
 
-        ResourceSet result = null;
-
-        ConnectionProperties conn = AuthenticationUtilities.loadProperties();
-    	// initialize database driver
-    	System.out.println("[INFO] Loading driver class: " + conn.driver);
-        Class<?> cl = Class.forName(conn.driver);
-        
-        Database database = (Database) cl.newInstance();
-        database.setProperty("create-database", "true");
-        
-        DatabaseManager.registerDatabase(database);
-        
-        Collection col = null;
-        
-        try { 
-        	// get the collection
-        	System.out.println("[INFO] Retrieving the collection: " + collectionId);
-            col = DatabaseManager.getCollection(conn.uri + collectionId);
-            
-            if(col == null)
-            {
-                return null;
-            }
-            // get an instance of xpath query service
-            XPathQueryService xpathService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-            xpathService.setProperty("indent", "yes");
-            
-            // make the service aware of namespaces, using the default one
-            xpathService.setNamespace("", TARGET_NAMESPACE);
-            // System.out.println("\n[INPUT] Enter an XPath expression (e.g. doc(\"1.xml\")//book[@category=\"WEB\" and price>35]/title): ");
-            // execute xpath expression 
-            System.out.println("[INFO] Invoking XPath query service for: " + xpathExp);
-            result = xpathService.query(xpathExp);
-            // handle the results
-            System.out.println("[INFO] Handling the results... ");
-        } finally {
-        	
-            // don't forget to cleanup
-            if(col != null) {
-                try { 
-                	col.close();
-                } catch (XMLDBException xe) {
-                	xe.printStackTrace();
-                }
-            }
-        }
-        return result;
-    }
+	public static ResourceSet executeXPathExpression(String collectionId, String xpathExp, String TARGET_NAMESPACE)
+			throws Exception {
+		ResourceSet result = null;
+		ConnectionProperties conn = AuthenticationUtilities.loadProperties();
+		Class<?> cl = Class.forName(conn.driver);
+		Database database = (Database) cl.newInstance();
+		database.setProperty("create-database", "true");
+		DatabaseManager.registerDatabase(database);
+		Collection col = null;
+		try {
+			// get the collection
+			col = DatabaseManager.getCollection(conn.uri + collectionId);
+			if (col == null) {
+				return null;
+			}
+			
+			System.out.println(col.getResource("coverLetterc1ce1dd1-ed4a-4f6c-a86e-ced74b5337a8"));
+			// get an instance of xpath query service
+			XPathQueryService xpathService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+			xpathService.setProperty("indent", "yes");
+			// make the service aware of namespaces, using the default one
+			xpathService.setNamespace("", TARGET_NAMESPACE);
+			// execute xpath expression
+			System.out.println(xpathExp);
+			result = xpathService.query(xpathExp);
+			System.out.println(result.getSize());
+			System.out.println(result.getResource(1).getContent());
+			// handle the results
+		} finally {
+			// don't forget to cleanup
+			if (col != null) {
+				try {
+					col.close();
+				} catch (XMLDBException xe) {
+					xe.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
 }

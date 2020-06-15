@@ -38,23 +38,22 @@ public class UpdateData {
         }
     }
 
-    public static long delete(String collectionId,String documentId, String contextXPath) throws Exception{
-        long mods = 0;
-        Collection col = AuthenticationUtilities.initDBCollection(collectionId);
-        try{
-            Resource res = col.getResource(documentId);
-            col.removeResource(res);
-            mods = 1;
-            return mods;
-        }
-        finally {
-            if(col != null) {
-                try { 
-                	col.close();
-                } catch (XMLDBException xe) {
-                	xe.printStackTrace();
-                }
-            }
-        }
-    } 
+	public static long delete(String collectionId, String documentId) throws Exception {
+		long mods = 0;
+		Collection col = AuthenticationUtilities.initDBCollection(collectionId);
+		try {
+			Resource res = col.getResource(documentId);
+			col.removeResource(res);
+			mods = 1;
+			return mods;
+		} finally {
+			if (col != null) {
+				try {
+					col.close();
+				} catch (XMLDBException xe) {
+					xe.printStackTrace();
+				}
+			}
+		}
+	}
 }
