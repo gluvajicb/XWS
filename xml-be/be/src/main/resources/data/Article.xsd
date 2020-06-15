@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.uns.ac.rs/XMLtim" xmlns="http://www.uns.ac.rs/XMLtim">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.uns.ac.rs/XMLtim/Article" xmlns="http://www.uns.ac.rs/XMLtim/Article">
     <xs:element name="article">
         <xs:complexType>
             <xs:sequence>
@@ -49,6 +49,19 @@
                             </xs:element>
                         </xs:sequence>
                     </xs:complexType>
+                </xs:element>
+                <xs:element name="status">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="accepted"/>
+                            <xs:enumeration value="rejected"/>
+                            <xs:enumeration value="reviewing"/>
+                            <xs:enumeration value="revising"/>
+                            <xs:enumeration value="submitted"/>
+                            <xs:enumeration value="in_progress"/>
+                            <xs:enumeration value="deleted"/>
+                        </xs:restriction>
+                    </xs:simpleType>
                 </xs:element>
             </xs:sequence>
             
