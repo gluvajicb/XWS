@@ -33,24 +33,11 @@ public class CoverLetterController {
  @RequestMapping(
             path= "/create",
             method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            consumes = MediaType.APPLICATION_XML_VALUE
     )
-	public ResponseEntity<Boolean> createCoverLetter(@RequestBody(required = false) CoverLetterDTO coverLetterDTO) {
-		System.out.println(coverLetterDTO.getScientificWorkId());
-		CoverLetter coverLetter = new CoverLetter();
-		DatatypeFactory datatypeFactory = null;
+	public ResponseEntity<Boolean> createCoverLetter(@RequestBody(required = true) String coverLetterDTO) {
 		try {
-			datatypeFactory = DatatypeFactory.newInstance();
-		} catch (DatatypeConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		coverLetter.setSubmissionDate(datatypeFactory.newXMLGregorianCalendar(new java.util.GregorianCalendar()));
-		coverLetter.setText(coverLetterDTO.getText());
-		coverLetter.setTitle(coverLetterDTO.getTitle());
-		coverLetter.setArticleId(coverLetterDTO.getScientificWorkId());
-		try {
-			coverLetterService.save(coverLetter);
+			coverLetterService.save(coverLetterDTO);
 			return new ResponseEntity<Boolean>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<Boolean>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -60,33 +47,22 @@ public class CoverLetterController {
 		 @RequestMapping(
 		         path= "/{coverLetterId}",
 		         method = RequestMethod.GET,
-		         produces = MediaType.APPLICATION_JSON_VALUE
+		         produces = MediaType.APPLICATION_XML_VALUE
 		 )
-		public ResponseEntity<CoverLetterDTO> getById(@PathVariable String coverLetterId) {
-			CoverLetter coverLetter = new CoverLetter();
-			CoverLetterDTO retVal = null;
-
+		public ResponseEntity<String> getById(@PathVariable String coverLetterId) {
+			String retVal;
 			try {
-				coverLetter = coverLetterService.findById(coverLetterId);
+				retVal = coverLetterService.findById(coverLetterId);
 			} catch (Exception e) {
-				e.printStackTrace();
+				return new ResponseEntity<String>("", HttpStatus.NOT_FOUND);
 			}
-			if (coverLetter == null) {
-				return new ResponseEntity<CoverLetterDTO>(retVal, HttpStatus.NOT_FOUND);
-			}
-
-			retVal = new CoverLetterDTO(coverLetter.getID(), coverLetter.getTitle(), coverLetter.getArticleId(), coverLetter.getText());
-			return new ResponseEntity<CoverLetterDTO>(retVal, HttpStatus.OK);
+			return new ResponseEntity<String>(retVal, HttpStatus.OK);
 		}
 		 
-		 @PutMapping(value="/updateCoverLetter/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_XML_VALUE)
-			public ResponseEntity<String> update(@RequestBody CoverLetterDTO dto, @PathVariable("id") String id) throws Exception {
-				CoverLetter cl = new CoverLetter();
-				cl.setID(id);
-				cl.setText(dto.getText());
-				cl.setTitle(dto.getTitle());
-				cl.setArticleId(dto.getScientificWorkId());
-				String coverLetter_ = coverLetterService.update(id, cl);
+		 @PutMapping(value="/updateCoverLetter/{id}", consumes = MediaType.APPLICATION_XML_VALUE,produces = MediaType.APPLICATION_XML_VALUE)
+			public ResponseEntity<String> update(@RequestBody String dto, @PathVariable("id") String id) throws Exception {
+
+				String coverLetter_ = coverLetterService.update(id, dto);
 				return new ResponseEntity<>(coverLetter_, HttpStatus.OK);
 			}
 		 

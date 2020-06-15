@@ -15,11 +15,11 @@ public class CoverLetterService implements CoverLetterServiceImplementation {
 	@Autowired
 	private CoverLetterRepository coverLetterRepository;
 
-	public String save(CoverLetter coverLetter) throws Exception {
+	public String save(String coverLetter) throws Exception {
 		return coverLetterRepository.save(coverLetter);
 	}
 	
-	public String update(String id, CoverLetter coverLetter) throws Exception {
+	public String update(String id, String coverLetter) throws Exception {
 		return coverLetterRepository.update(id, coverLetter);
 	}
 	
@@ -28,7 +28,7 @@ public class CoverLetterService implements CoverLetterServiceImplementation {
 	}
 	
 	
-	public CoverLetter findById(String id) throws Exception {
+	public String findById(String id) throws Exception {
 		return coverLetterRepository.findById(id);
 	}
  

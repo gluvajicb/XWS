@@ -1,6 +1,7 @@
 package xmlproject.be.repository;
 
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
 
 import rs.ac.uns.xmltim.coverletter.CoverLetter;
+import xmlproject.be.util.NSPrefixMapper;
 import xmlproject.be.util.Authentication.AuthenticationUtilities;
 import xmlproject.be.util.Authentication.AuthenticationUtilities.ConnectionProperties;
 import xmlproject.be.util.Exist.RetriveData;
@@ -40,14 +42,21 @@ public class CoverLetterRepository {
 	public static String coverLetterCollectionId = "/db/XWS/coverLetter";
 	public static String coverLetterSchemaPath = "src/main/resources/data/CoverLetter.xsd";
 
-	public String save(CoverLetter coverLetter) throws Exception {
+	public String save(String coverLetterXML) throws Exception {
 		String Id = generateNewCoverLetterId();
-		coverLetter.setID(Id);
-		
-		String coverLetterXML = "";
+		CoverLetter coverLetter = null;
 		
 		try {
 
+			JAXBContext jaxbContext = JAXBContext.newInstance(CoverLetter.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			StringReader sr = new StringReader(coverLetterXML);
+			
+			System.out.println(coverLetterXML);
+
+			coverLetter = (CoverLetter) unmarshaller.unmarshal(sr);
+			coverLetter.setID(Id);
+			System.out.println(coverLetter.getID());
 			JAXBContext context = JAXBContext.newInstance(CoverLetter.class);
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -62,19 +71,35 @@ public class CoverLetterRepository {
 		return Id;
 	}
 	
-	public String update(String id, CoverLetter coverLetter) throws Exception {
-		CoverLetter coverLetterOld = this.findById(id);
+	public String update(String id, String coverLetterXML) throws Exception {
+		CoverLetter coverLetterOld = this.findCLById(id);
 		if (coverLetterOld == null) {
 			throw new Exception("No CoverLetter with this id");
 		}
 		this.delete(id);
-		coverLetter.setSubmissionDate(coverLetterOld.getSubmissionDate());
-		JAXBContext context = JAXBContext.newInstance(CoverLetter.class);
-		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		marshaller.marshal(coverLetter, stream);
-		String coverLetterXML = new String(stream.toByteArray());
+		CoverLetter coverLetter = null;
+		
+		try {
+
+			JAXBContext jaxbContext = JAXBContext.newInstance(CoverLetter.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			StringReader sr = new StringReader(coverLetterXML);
+			
+			System.out.println(coverLetterXML);
+
+			coverLetter = (CoverLetter) unmarshaller.unmarshal(sr);
+			System.out.println(coverLetter.getID());
+			JAXBContext context = JAXBContext.newInstance(CoverLetter.class);
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			marshaller.marshal(coverLetter, stream);
+			coverLetterXML = new String(stream.toByteArray());
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		
+
 		StoreData.store(coverLetterCollectionId, id, coverLetterXML);
 		return id;
 	}
@@ -90,7 +115,7 @@ public class CoverLetterRepository {
 		return true;
 	}
 	
-	public CoverLetter findById(String id) throws Exception {
+	public CoverLetter findCLById(String id) throws Exception {
 
 		ResourceSet result = null;
 		ConnectionProperties conn = AuthenticationUtilities.loadProperties();
@@ -125,6 +150,48 @@ public class CoverLetterRepository {
 		}
 
 		return retVal;
+	}
+	
+	public String findById(String id) throws Exception {
+
+		ResourceSet result = null;
+		ConnectionProperties conn = AuthenticationUtilities.loadProperties();
+		Class<?> cl = Class.forName(conn.driver);
+		Database database = (Database) cl.newInstance();
+		database.setProperty("create-database", "true");
+		DatabaseManager.registerDatabase(database);
+		Collection col = null;
+		CoverLetter retVal = null;
+		XMLResource res = null;
+		try {
+			// get the collection
+			col = DatabaseManager.getCollection(conn.uri + coverLetterCollectionId);
+			if (col == null) {
+				return null;
+			}
+			
+			res = (XMLResource) col.getResource(id);
+			System.out.println(res.getContent());
+			JAXBContext jaxbContext = JAXBContext.newInstance(CoverLetter.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			
+			retVal = (CoverLetter) unmarshaller.unmarshal(res.getContentAsDOM());
+			if(retVal == null) {
+				throw new Exception("Unmarshaling failed");
+
+				}
+		} finally {
+			// don't forget to cleanup
+			if (col != null) {
+				try {
+					col.close();
+				} catch (XMLDBException xe) {
+					xe.printStackTrace();
+				}
+			}
+		}
+
+		return (String) res.getContent();
 	}
 
 
