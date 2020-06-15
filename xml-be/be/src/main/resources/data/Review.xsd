@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.uns.ac.rs/XMLtim" xmlns="http://www.uns.ac.rs/XMLtim"> 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.uns.ac.rs/XMLtim/Review" xmlns="http://www.uns.ac.rs/XMLtim/Review"> 
         <xs:element name="review">
             <xs:complexType>
                 <xs:sequence>
-                    <xs:element name="rticle_id" type="xs:string" />
+                    <xs:element name="article_id" type="xs:string" />
                     
                     <xs:element name="overall_recommendation">
                         <xs:simpleType>
@@ -63,8 +63,11 @@
                     
                     <xs:element name="workflowId" type="xs:string" />
                     
+                    
                 </xs:sequence>
+                
+                
         </xs:complexType>
     </xs:element>
-    
+    <xs:attribute name="ID" type="xs:string"/>
 </xs:schema>
