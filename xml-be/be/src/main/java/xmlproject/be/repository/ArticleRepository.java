@@ -244,6 +244,37 @@ public class ArticleRepository {
 		return retVal;
 	}
 	
+	public List<String> searchArticles(String abst, String title, String keyword, String author, String section) throws Exception {
+		String xQuery = "//article[status=\"" + "in_progress" + "\""
+				+ " and (./abstract/paragraph[text[contains(text(), '" + abst + "')]] "
+				+ "or ./title[contains(text(), '" + title + "')] "
+				+ "or ./abstract/keywords[keyword[contains(text(), '" + keyword + "')]]"
+				+ " or concat(./authors/author/name,\" \",./authors/author/surname)[contains(., '"+ author + "')] "
+				+ "or ./sections/section/title[contains(text(), '" + section + "')] or ./sections/section/paragraph[text[contains(text(), '" + section + "')]])]";		
+		
+		System.out.println("iuso");
+		List<String> retVal = new ArrayList<>();
+		XMLResource ret = null;
+
+		try {
+			org.xmldb.api.base.ResourceSet result = existRetrieve.executeXPathExpression(articleCollectionId, xQuery,
+					XUpdateTemplate.TARGET_NAMESPACE + "/Article");
+			ResourceIterator it = result.getIterator();
+			Resource res = null;
+			while (it.hasMoreResources()) {
+				ret = (XMLResource) it.nextResource();
+				System.out.println(ret.getContent().toString());
+
+				retVal.add(ret.getContent().toString());
+				System.out.println(retVal.size() + "SIZEE");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return retVal;
+	}
+	
 	public List<String> findByAuthorUsername(String username) throws XMLDBException {
 		String xQuery = "//article[status=\"" + "in_progress" + "\"" + " and ./authors/author[@username=\"" + username + "\"" + "]]";
 		 List<String> retVal = new ArrayList<>();

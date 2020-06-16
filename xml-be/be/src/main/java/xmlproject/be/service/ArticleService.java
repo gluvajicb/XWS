@@ -47,6 +47,10 @@ public class ArticleService implements ArticleServiceImplementation {
 	public  List<String> getAllSubmitted() throws Exception {
 		return articleRepository.getAllSubmitted();
 	}
+	
+	public  List<String> searchArticles(String abst, String title,String keyword,String author,String section) throws Exception {
+		return articleRepository.searchArticles(abst, title, keyword, author, section);
+	}
 }
 
 
