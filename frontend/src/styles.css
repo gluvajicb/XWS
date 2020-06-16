@@ -75,3 +75,16 @@ body {
 
   .form__field:invalid { box-shadow:none; 
   }
+
+
+  .article-view {
+    height: 60vh;
+    background-color: #1a1a1a;
+    position: relative
+  }
+
+  .article-dropdown {
+    position: absolute;
+    bottom: 2vh;
+    padding-left: 10vw;
+  }
