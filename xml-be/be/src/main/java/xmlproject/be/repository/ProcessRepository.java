@@ -2,6 +2,7 @@ package xmlproject.be.repository;
 
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
+import java.util.List;
 import java.util.UUID;
 
 import javax.xml.bind.JAXBContext;
@@ -19,6 +20,9 @@ import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
 import rs.ac.uns.xmltim.process.Process;
+import rs.ac.uns.xmltim.process.Process.Reviews;
+import rs.ac.uns.xmltim.process.Process.Reviews.ReviewElement;
+import rs.ac.uns.xmltim.review.Review;
 import xmlproject.be.util.Authentication.AuthenticationUtilities;
 import xmlproject.be.util.Authentication.AuthenticationUtilities.ConnectionProperties;
 import xmlproject.be.util.Exist.RetriveData;
@@ -30,7 +34,8 @@ public class ProcessRepository {
 	@Autowired
 	RetriveData existRetrieve;
 
-
+	@Autowired
+	ReviewRepository reviewRepository;
 	public static String processCollectionId = "/db/XWS/process";
 	public static String processSchemaPath = "src/main/resources/data/Process.xsd";
 
@@ -47,6 +52,16 @@ public class ProcessRepository {
 
 			process = (Process) unmarshaller.unmarshal(sr);
 			process.setID(Id);
+			
+			List<ReviewElement> reviews = process.getReviews().getReviewElement();
+			for(ReviewElement el : reviews) {
+				Review newReview = new Review();
+				newReview.setArticleId(process.getArticleId());
+				newReview.setWorkflowId(Id);
+				
+				String revierId = reviewRepository.save(newReview);
+				el.setReviewId(revierId);
+			}
 			System.out.println(process.getID());
 			System.out.println(process.getID());
 			JAXBContext context = JAXBContext.newInstance(Process.class);
