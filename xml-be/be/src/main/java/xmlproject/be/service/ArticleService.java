@@ -1,7 +1,12 @@
 package xmlproject.be.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xmldb.api.base.XMLDBException;
+
+import com.github.andrewoma.dexx.collection.ArrayList;
 
 import xmlproject.be.repository.ArticleRepository;
 import xmlproject.be.service.interfaces.ArticleServiceImplementation;
@@ -31,4 +36,7 @@ public class ArticleService implements ArticleServiceImplementation {
 		return articleRepository.findById(id);
 	}
 
+	public  List<String> findByAuthorUsername(String username) throws XMLDBException {
+		return articleRepository.findByAuthorUsername(username);
+	}
 }

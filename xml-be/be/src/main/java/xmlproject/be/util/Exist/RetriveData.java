@@ -40,7 +40,6 @@ public class RetriveData {
 			System.out.println(xpathExp);
 			result = xpathService.query(xpathExp);
 			System.out.println(result.getSize());
-			System.out.println(result.getResource(1).getContent());
 			// handle the results
 		} finally {
 			// don't forget to cleanup

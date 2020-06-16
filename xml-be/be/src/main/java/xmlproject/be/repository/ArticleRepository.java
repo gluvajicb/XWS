@@ -2,8 +2,12 @@ package xmlproject.be.repository;
 
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.UUID;
 
+import org.exist.Resource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -15,8 +19,11 @@ import org.springframework.stereotype.Repository;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
+import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
+
+import java.util.ArrayList;
 
 import rs.ac.uns.xmltim.article.Article;
 import xmlproject.be.util.Authentication.AuthenticationUtilities;
@@ -24,6 +31,7 @@ import xmlproject.be.util.Authentication.AuthenticationUtilities.ConnectionPrope
 import xmlproject.be.util.Exist.RetriveData;
 import xmlproject.be.util.Exist.StoreData;
 import xmlproject.be.util.Exist.UpdateData;
+import xmlproject.be.util.template.XUpdateTemplate;
 @Repository
 public class ArticleRepository {
 
@@ -186,6 +194,29 @@ public class ArticleRepository {
 		return (String) res.getContent();
 	}
 	
+	public List<String> findByAuthorUsername(String username) throws XMLDBException {
+		String xQuery = "//article[status=\"" + "in_progress" + "\"" + " and ./authors/author[@username=\"" + username + "\"" + "]]";
+		 List<String> retVal = new ArrayList<>();
+		XMLResource ret = null;
+
+		try {
+			org.xmldb.api.base.ResourceSet result = existRetrieve.executeXPathExpression(articleCollectionId, xQuery,
+					XUpdateTemplate.TARGET_NAMESPACE + "/Article");
+			ResourceIterator it = result.getIterator();
+			Resource res = null;
+			while (it.hasMoreResources()) {
+				ret = (XMLResource) it.nextResource();
+				System.out.println(ret.getContent().toString());
+
+				retVal.add(ret.getContent().toString());
+				System.out.println(retVal.size() + "SIZEE");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return retVal;
+	}
 	
 	public String generateNewId() throws Exception {
 		String retVal = "article";
