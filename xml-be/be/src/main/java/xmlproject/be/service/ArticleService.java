@@ -39,4 +39,14 @@ public class ArticleService implements ArticleServiceImplementation {
 	public  List<String> findByAuthorUsername(String username) throws XMLDBException {
 		return articleRepository.findByAuthorUsername(username);
 	}
+	
+	public  String logicalDelete(String id) throws Exception {
+		return articleRepository.logicalDelete(id);
+	}
+	
+	public  List<String> getAllSubmitted() throws Exception {
+		return articleRepository.getAllSubmitted();
+	}
 }
+
+

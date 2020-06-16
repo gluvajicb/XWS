@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,6 +75,18 @@ public class ArticleController {
 	 @GetMapping(value="/author/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity< List<String>> findByUsername(@PathVariable("id") String id) throws Exception{
 		 List<String> retVal = articleService.findByAuthorUsername(id);
+			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
+		}
+	 
+	 @PostMapping(value="/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> logicalDelete(@PathVariable("id") String id) throws Exception{
+		 String retVal = articleService.logicalDelete(id);
+			return new ResponseEntity<String>(retVal, HttpStatus.OK);
+		}
+	 
+	 @GetMapping(value="/submitted", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity< List<String>> getAllSubmitted(@PathVariable("id") String id) throws Exception{
+		 List<String> retVal = articleService.getAllSubmitted();
 			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
 		}
 
