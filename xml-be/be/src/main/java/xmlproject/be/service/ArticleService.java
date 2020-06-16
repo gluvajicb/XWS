@@ -40,6 +40,10 @@ public class ArticleService implements ArticleServiceImplementation {
 		return articleRepository.findByAuthorUsername(username);
 	}
 	
+	public  String submitArticle(String id) throws Exception {
+		return articleRepository.submitArticle(id);
+	}
+	
 	public  String logicalDelete(String id) throws Exception {
 		return articleRepository.logicalDelete(id);
 	}

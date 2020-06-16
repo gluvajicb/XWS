@@ -85,6 +85,12 @@ public class ArticleController {
 			return new ResponseEntity<String>(retVal, HttpStatus.OK);
 		}
 	 
+	 @PostMapping(value="/{id}/submit", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> submitArticle(@PathVariable("id") String id) throws Exception{
+		 String retVal = articleService.submitArticle(id);
+			return new ResponseEntity<String>(retVal, HttpStatus.OK);
+		}
+	 
 	 @GetMapping(value="/submitted", produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity< List<String>> getAllSubmitted() throws Exception{
 		 List<String> retVal = articleService.getAllSubmitted();
