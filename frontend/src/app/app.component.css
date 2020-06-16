@@ -1,0 +1,13 @@
+body {
+    background-color: #363636;
+}
+.navigation {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
+}
+
+.navigation h1 {
+    font-size: 32px;
+}
+
