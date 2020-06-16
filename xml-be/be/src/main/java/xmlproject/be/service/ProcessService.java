@@ -1,5 +1,7 @@
 package xmlproject.be.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.css.sac.ProcessingInstructionSelector;
@@ -30,4 +32,9 @@ public class ProcessService implements ProcesServiceImplementation{
 	public String findById(String id) throws Exception {
 		return processRepository.findById(id);
 	}
+	
+	public  List<String> getReviewsForUser(String reviewerId) throws Exception {
+		return processRepository.getReviewsForUser(reviewerId);
+	}
+	
 }
