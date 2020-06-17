@@ -24,9 +24,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/js/xonomy/xonomy.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/xonomy/xonomy.js",
+              "src/assets/js/xonomy/jquery-3.5.1.js"
+            ]
           },
           "configurations": {
             "production": {
