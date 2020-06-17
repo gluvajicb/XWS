@@ -3,19 +3,7 @@
         <xs:element name="review">
             <xs:complexType>
                 <xs:sequence>
-                    <xs:element name="article_id" type="xs:string" />
-                    
-                    <xs:element name="overall_recommendation">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:string">
-                                <xs:enumeration value="accept"/>
-                                <xs:enumeration value="reject"/>
-                                <xs:enumeration value="major_revisions"/>
-                                <xs:enumeration value="minor_revisions"/>
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:element>
-                    
+                    <xs:element name="article_id" type="xs:string" />                    
                     <xs:element name="questionnaire">
                         <xs:complexType>
                             <xs:sequence>
@@ -67,7 +55,8 @@
                 </xs:sequence>
                 
                 
+                <xs:attribute name="ID" type="xs:string"/>      
         </xs:complexType>
+            
     </xs:element>
-    <xs:attribute name="ID" type="xs:string"/>
 </xs:schema>
