@@ -72,6 +72,32 @@ public class ReviewRepository {
 		return Id;
 	}
 	
+	public String save(Review coverLetter) throws Exception {
+		String Id = generateNewId();
+		String reviewXML = "";
+		try {
+			coverLetter.setID(Id);
+
+			String ret = articleService.findById(coverLetter.getArticleId());
+			if(ret == null)
+				throw new Exception("Article not found");
+			
+			System.out.println(coverLetter.getID());
+			System.out.println(coverLetter.getID());
+			JAXBContext context = JAXBContext.newInstance(Review.class);
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			marshaller.marshal(coverLetter, stream);
+			reviewXML = new String(stream.toByteArray());
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		
+		StoreData.store(articleCollectionId, Id, reviewXML);
+		return Id;
+	}
+	
 	public String update(String id, String reviewXML) throws Exception {
 		Review reviewOld = this.findCLById(id);
 		if (reviewOld == null) {

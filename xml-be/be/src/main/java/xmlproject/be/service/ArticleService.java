@@ -40,12 +40,20 @@ public class ArticleService implements ArticleServiceImplementation {
 		return articleRepository.findByAuthorUsername(username);
 	}
 	
+	public  String submitArticle(String id) throws Exception {
+		return articleRepository.submitArticle(id);
+	}
+	
 	public  String logicalDelete(String id) throws Exception {
 		return articleRepository.logicalDelete(id);
 	}
 	
 	public  List<String> getAllSubmitted() throws Exception {
 		return articleRepository.getAllSubmitted();
+	}
+	
+	public  List<String> searchArticles(String abst, String title,String keyword,String author,String section) throws Exception {
+		return articleRepository.searchArticles(abst, title, keyword, author, section);
 	}
 }
 

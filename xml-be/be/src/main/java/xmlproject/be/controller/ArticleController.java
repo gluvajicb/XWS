@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.andrewoma.dexx.collection.ArrayList;
 
+import xmlproject.be.dto.SearchDTO;
 import xmlproject.be.service.ArticleService;
 import xmlproject.be.service.CoverLetterService;
 
@@ -84,9 +85,21 @@ public class ArticleController {
 			return new ResponseEntity<String>(retVal, HttpStatus.OK);
 		}
 	 
+	 @PostMapping(value="/{id}/submit", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> submitArticle(@PathVariable("id") String id) throws Exception{
+		 String retVal = articleService.submitArticle(id);
+			return new ResponseEntity<String>(retVal, HttpStatus.OK);
+		}
+	 
 	 @GetMapping(value="/submitted", produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity< List<String>> getAllSubmitted(@PathVariable("id") String id) throws Exception{
+		public ResponseEntity< List<String>> getAllSubmitted() throws Exception{
 		 List<String> retVal = articleService.getAllSubmitted();
+			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
+		}
+
+	 @PostMapping(value="/search", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity< List<String>> search(@RequestBody SearchDTO dto) throws Exception{
+		 List<String> retVal = articleService.searchArticles(dto.getAbst(), dto.getTitle(), dto.getKeyword(), dto.getAuthor(), dto.getSection());
 			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
 		}
 

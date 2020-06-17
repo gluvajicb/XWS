@@ -2,6 +2,8 @@ package xmlproject.be.repository;
 
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.xml.bind.JAXBContext;
@@ -10,27 +12,34 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.catalina.util.ResourceSet;
+import org.exist.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
+import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
 import rs.ac.uns.xmltim.process.Process;
+import rs.ac.uns.xmltim.process.Process.Reviews;
+import rs.ac.uns.xmltim.process.Process.Reviews.ReviewElement;
+import rs.ac.uns.xmltim.review.Review;
 import xmlproject.be.util.Authentication.AuthenticationUtilities;
 import xmlproject.be.util.Authentication.AuthenticationUtilities.ConnectionProperties;
 import xmlproject.be.util.Exist.RetriveData;
 import xmlproject.be.util.Exist.StoreData;
 import xmlproject.be.util.Exist.UpdateData;
+import xmlproject.be.util.template.XUpdateTemplate;
 
 @Repository
 public class ProcessRepository {
 	@Autowired
 	RetriveData existRetrieve;
 
-
+	@Autowired
+	ReviewRepository reviewRepository;
 	public static String processCollectionId = "/db/XWS/process";
 	public static String processSchemaPath = "src/main/resources/data/Process.xsd";
 
@@ -47,6 +56,16 @@ public class ProcessRepository {
 
 			process = (Process) unmarshaller.unmarshal(sr);
 			process.setID(Id);
+			
+			List<ReviewElement> reviews = process.getReviews().getReviewElement();
+			for(ReviewElement el : reviews) {
+				Review newReview = new Review();
+				newReview.setArticleId(process.getArticleId());
+				newReview.setWorkflowId(Id);
+				
+				String revierId = reviewRepository.save(newReview);
+				el.setReviewId(revierId);
+			}
 			System.out.println(process.getID());
 			System.out.println(process.getID());
 			JAXBContext context = JAXBContext.newInstance(Process.class);
@@ -192,6 +211,31 @@ public class ProcessRepository {
 		String id = UUID.randomUUID().toString();
 
 		retVal += id;
+		return retVal;
+	}
+	
+	public List<String> getReviewsForUser(String reviewerId) throws Exception {
+		String xQuery = "/process/reviews/review_element[reviewer_id = '" + reviewerId + "']/review_id//text()";
+		List<String> retVal = new ArrayList<>();
+		String ret = null;
+		ReviewElement p = null;
+		try {
+			org.xmldb.api.base.ResourceSet result = existRetrieve.executeXPathExpression(processCollectionId, xQuery,
+					XUpdateTemplate.TARGET_NAMESPACE + "/Process");
+			ResourceIterator it = result.getIterator();
+			Resource res = null;
+			while (it.hasMoreResources()) {
+				ret = it.nextResource().getContent().toString();
+				
+				
+				String review = reviewRepository.findById(ret);
+				retVal.add(review);
+				System.out.println(retVal.size() + "SIZEE");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return retVal;
 	}
 }
