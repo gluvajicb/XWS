@@ -14,7 +14,7 @@ import { AddCoverletterComponent } from './add-coverletter/add-coverletter.compo
 const routes: Routes = [  
   {path: '', component: HomeComponentComponent},
   {path: 'add-article', component: AddArticleComponent},
-  {path: 'add-review', component: AddReviewComponent},
+  {path: 'add-review/:id', component: AddReviewComponent},
   {path: 'my-articles', component: MyArticlesComponent},
   {path: 'assign-reviewers', component: AssignReviewersComponent},
   {path: 'login', component: LoginComponent},
