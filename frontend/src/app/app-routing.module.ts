@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { AddCoverletterComponent } from './add-coverletter/add-coverletter.component';
+import { SearchComponent } from './search/search.component';
 
 
 const routes: Routes = [  
@@ -20,8 +21,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'edit-article/:id', component: EditArticleComponent},
-  {path: 'add-coverletter', component: AddCoverletterComponent}
-
+  {path: 'add-coverletter', component: AddCoverletterComponent},
+  {path: 'search', component: SearchComponent}
 
 ];
 
