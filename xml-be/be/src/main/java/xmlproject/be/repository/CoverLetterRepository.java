@@ -84,7 +84,7 @@ public class CoverLetterRepository {
 			JAXBContext jaxbContext = JAXBContext.newInstance(CoverLetter.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			StringReader sr = new StringReader(coverLetterXML);
-			
+			coverLetter.setID(id);
 			System.out.println(coverLetterXML);
 
 			coverLetter = (CoverLetter) unmarshaller.unmarshal(sr);

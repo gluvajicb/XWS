@@ -22,6 +22,7 @@ import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
+import rs.ac.uns.xmltim.article.Article;
 import rs.ac.uns.xmltim.process.Process;
 import rs.ac.uns.xmltim.process.Process.Reviews;
 import rs.ac.uns.xmltim.process.Process.Reviews.ReviewElement;
@@ -40,6 +41,10 @@ public class ProcessRepository {
 
 	@Autowired
 	ReviewRepository reviewRepository;
+	
+	@Autowired
+	ArticleRepository articleRepository;
+	
 	public static String processCollectionId = "/db/XWS/process";
 	public static String processSchemaPath = "src/main/resources/data/Process.xsd";
 
@@ -73,6 +78,10 @@ public class ProcessRepository {
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			marshaller.marshal(process, stream);
+			
+			Article article = articleRepository.findCLById(process.getArticleId());
+			article.setStatus("reviewing");
+			articleRepository.update(process.getArticleId(), article);
 			processXML = new String(stream.toByteArray());
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -99,6 +108,7 @@ public class ProcessRepository {
 			System.out.println(processXML);
 
 			process = (Process) unmarshaller.unmarshal(sr);
+			process.setID(id);
 			System.out.println(process.getID());
 			JAXBContext context = JAXBContext.newInstance(Process.class);
 			Marshaller marshaller = context.createMarshaller();
