@@ -8,12 +8,18 @@
 
 package rs.ac.uns.xmltim.user;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import xmlproject.be.dto.UserRegisterDTO;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.Collection;
+import java.util.HashSet;
 
 
 /**
@@ -51,7 +57,7 @@ import javax.xml.bind.annotation.XmlType;
     "role"
 })
 @XmlRootElement(name = "user")
-public class User {
+public class User implements UserDetails {
 
     @XmlElement(required = true)
     protected String username;
@@ -67,6 +73,28 @@ public class User {
     protected Role role;
     @XmlAttribute(name = "ID")
     protected String id;
+
+    public User() {
+
+    }
+
+    public User(UserRegisterDTO dto) {
+        this.username = dto.username;
+        this.name = dto.name;
+        this.surname = dto.surname;
+        this.email = dto.email;
+        this.password = dto.password;
+    }
+
+    public User(String username, String name, String surname, String email, String password, Role role, String id) {
+        this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.id = id;
+    }
 
     /**
      * Gets the value of the username property.
@@ -234,6 +262,32 @@ public class User {
      */
     public void setID(String value) {
         this.id = value;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        return grantedAuthorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
 }

@@ -12,4 +12,7 @@ export class EditCoverletterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  submit(){
+    console.log("Submit function")
+  }
 }

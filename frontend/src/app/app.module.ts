@@ -14,7 +14,8 @@ import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { AddCoverletterComponent } from './add-coverletter/add-coverletter.component';
-import { EditCoverletterComponent } from './edit-coverletter/edit-coverletter.component'
+import { EditCoverletterComponent } from './edit-coverletter/edit-coverletter.component';
+import { SearchComponent } from './search/search.component'
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EditCoverletterComponent } from './edit-coverletter/edit-coverletter.co
     RegisterComponent,
     EditArticleComponent,
     AddCoverletterComponent,
-    EditCoverletterComponent
+    EditCoverletterComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
