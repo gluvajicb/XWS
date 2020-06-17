@@ -115,7 +115,7 @@ public class ReviewRepository {
 
 			review = (Review) unmarshaller.unmarshal(sr);
 			System.out.println(review.getID());
-			
+			review.setID(id);
 			String ret = articleService.findById(review.getArticleId());
 			if(ret == null)
 				throw new Exception("Article not found");

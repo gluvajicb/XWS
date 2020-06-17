@@ -43,9 +43,17 @@ public class ArticleService implements ArticleServiceImplementation {
 	public  String submitArticle(String id) throws Exception {
 		return articleRepository.submitArticle(id);
 	}
-	
+	public  String acceptArticle(String id) throws Exception {
+		return articleRepository.acceptArticle(id);
+	}
+	public  String rejectArticle(String id) throws Exception {
+		return articleRepository.rejectArticle(id);
+	}	
 	public  String logicalDelete(String id) throws Exception {
 		return articleRepository.logicalDelete(id);
+	}
+	public  String reviewingArtilce(String id) throws Exception {
+		return articleRepository.reviewArticle(id);
 	}
 	
 	public  List<String> getAllSubmitted() throws Exception {

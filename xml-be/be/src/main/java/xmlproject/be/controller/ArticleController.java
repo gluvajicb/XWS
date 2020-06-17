@@ -91,6 +91,18 @@ public class ArticleController {
 			return new ResponseEntity<String>(retVal, HttpStatus.OK);
 		}
 	 
+	 @PostMapping(value="/{id}/accept", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> acceptArticle(@PathVariable("id") String id) throws Exception{
+		 String retVal = articleService.acceptArticle(id);
+			return new ResponseEntity<String>(retVal, HttpStatus.OK);
+		}
+	 
+	 @PostMapping(value="/{id}/reject", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> rejectArticle(@PathVariable("id") String id) throws Exception{
+		 String retVal = articleService.rejectArticle(id);
+			return new ResponseEntity<String>(retVal, HttpStatus.OK);
+		}
+	 
 	 @GetMapping(value="/submitted", produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity< List<String>> getAllSubmitted() throws Exception{
 		 List<String> retVal = articleService.getAllSubmitted();
