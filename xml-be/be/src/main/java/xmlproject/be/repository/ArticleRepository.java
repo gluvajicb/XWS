@@ -207,6 +207,55 @@ public class ArticleRepository {
 		StoreData.store(articleCollectionId, id, articleXML);
 		return id;
 	}
+	public String acceptArticle(String id) throws Exception {
+		Article article = this.findCLById(id);
+		if (article == null) {
+			throw new Exception("No Article with this id");
+		}
+		this.delete(id);
+		String articleXML = "";
+		try {
+			article.setStatus("accepted");
+			JAXBContext context = JAXBContext.newInstance(Article.class);
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			marshaller.marshal(article, stream);
+			articleXML = new String(stream.toByteArray());
+			System.out.println(articleXML);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		
+
+		StoreData.store(articleCollectionId, id, articleXML);
+		return id;
+	}
+	
+	public String rejectArticle(String id) throws Exception {
+		Article article = this.findCLById(id);
+		if (article == null) {
+			throw new Exception("No Article with this id");
+		}
+		this.delete(id);
+		String articleXML = "";
+		try {
+			article.setStatus("rejected");
+			JAXBContext context = JAXBContext.newInstance(Article.class);
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			marshaller.marshal(article, stream);
+			articleXML = new String(stream.toByteArray());
+			System.out.println(articleXML);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		
+
+		StoreData.store(articleCollectionId, id, articleXML);
+		return id;
+	}
 	
 	public boolean delete(String id) throws Exception {
 		System.out.println(id);
