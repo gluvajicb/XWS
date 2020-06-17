@@ -7,6 +7,8 @@ import { AssignReviewersComponent } from './assign-reviewers/assign-reviewers.co
 import { AddReviewComponent } from './add-review/add-review.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { EditArticleComponent } from './edit-article/edit-article.component';
+import { AddCoverletterComponent } from './add-coverletter/add-coverletter.component';
 
 
 const routes: Routes = [  
@@ -17,6 +19,8 @@ const routes: Routes = [
   {path: 'assign-reviewers', component: AssignReviewersComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'edit-article/:id', component: EditArticleComponent},
+  {path: 'add-coverletter', component: AddCoverletterComponent}
 
 
 ];

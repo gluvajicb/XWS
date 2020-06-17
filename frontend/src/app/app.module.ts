@@ -11,6 +11,10 @@ import { AssignReviewersComponent } from './assign-reviewers/assign-reviewers.co
 import { AddReviewComponent } from './add-review/add-review.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { EditArticleComponent } from './edit-article/edit-article.component';
+import { AddCoverletterComponent } from './add-coverletter/add-coverletter.component';
+import { EditCoverletterComponent } from './edit-coverletter/edit-coverletter.component'
 
 @NgModule({
   declarations: [
@@ -22,11 +26,15 @@ import { RegisterComponent } from './register/register.component';
     AssignReviewersComponent,
     AddReviewComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditArticleComponent,
+    AddCoverletterComponent,
+    EditCoverletterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

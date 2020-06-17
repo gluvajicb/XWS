@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
+import { HttpClientModule, HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
+
+declare var Xonomy: any;
 
 @Component({
   selector: 'app-add-review',
@@ -7,9 +11,57 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddReviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void {
+  doSpec = {
+
+    elements: {
+
+      article_id: {
+
+      },
+
+      overall_recommendation: {
+
+      },
+
+      questionnaire: {
+        menu: [{
+          caption: 'Append <question_element>',
+          action: Xonomy.newElementChild,
+          actionParameter: '<question_element></question_element>'
+        }]
+
+      },
+
+      question_element: {
+
+      },
+
+      question: {
+
+      },
+
+      response: {
+
+      },
+
+      comments: {
+
+      }
+
+
+    }
+  };
+
+  ngOnInit() {
+    this.start();
+  }
+
+  start(){
+
+    
+
   }
 
 }
