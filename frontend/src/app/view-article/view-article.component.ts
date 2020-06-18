@@ -17,6 +17,8 @@ export class ViewArticleComponent implements OnInit {
   private id: any;
   private sub: any;
   url: any;
+  page:number = 1;
+  pdfSrc:string = '';
 
   constructor(private route: ActivatedRoute,
               private ArticleService: ArticleService,
@@ -24,7 +26,7 @@ export class ViewArticleComponent implements OnInit {
               private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.logArticle();
+    //this.logArticle();
   }
 
   logArticle() {
@@ -35,14 +37,30 @@ export class ViewArticleComponent implements OnInit {
     this.ArticleService.getPDF(this.id)
       .subscribe(
         res => {
-          const file = new Blob([res], {type: 'application/pdf'});
-          const fileURL = URL.createObjectURL(file);
-          this.url = fileURL;
-          console.log(fileURL);
-          window.open(fileURL);
+          let reader = new FileReader();
+
+          reader.onload = (e:any) => {
+            this.pdfSrc = e.target.result;
+          }
+
+          reader.readAsArrayBuffer(res);
         }
       );
    
+  }
+
+  onFileSelected() {
+    let img: any = document.querySelector("#file");
+
+    if(typeof (FileReader) !== 'undefined') {
+      let reader = new FileReader();
+
+      reader.onload = (e:any) => {
+        this.pdfSrc = e.target.result;
+      }
+
+      reader.readAsArrayBuffer(img.files[0]);
+    }
   }
 
 }

@@ -20,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewArticleComponent } from './view-article/view-article.component';
 import { ViewCoverletterComponent } from './view-coverletter/view-coverletter.component';
 import { ViewReviewComponent } from './view-review/view-review.component';
-
+import { PdfViewerModule} from 'ng2-pdf-viewer'
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +46,8 @@ import { ViewReviewComponent } from './view-review/view-review.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
+    PdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

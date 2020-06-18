@@ -88,3 +88,8 @@ body {
     bottom: 2vh;
     padding-left: 5vw;
   }
+
+  .small-view {
+    height: 40vh;
+    width: 100%;
+  }
