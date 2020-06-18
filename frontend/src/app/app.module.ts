@@ -16,6 +16,10 @@ import { EditArticleComponent } from './edit-article/edit-article.component';
 import { AddCoverletterComponent } from './add-coverletter/add-coverletter.component';
 import { EditCoverletterComponent } from './edit-coverletter/edit-coverletter.component';
 import { SearchComponent } from './search/search.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ViewArticleComponent } from './view-article/view-article.component';
+import { ViewCoverletterComponent } from './view-coverletter/view-coverletter.component';
+import { ViewReviewComponent } from './view-review/view-review.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +35,18 @@ import { SearchComponent } from './search/search.component'
     EditArticleComponent,
     AddCoverletterComponent,
     EditCoverletterComponent,
-    SearchComponent
+    SearchComponent,
+    ViewArticleComponent,
+    ViewCoverletterComponent,
+    ViewReviewComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

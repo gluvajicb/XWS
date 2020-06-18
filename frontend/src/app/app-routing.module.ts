@@ -10,6 +10,9 @@ import { RegisterComponent } from './register/register.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { AddCoverletterComponent } from './add-coverletter/add-coverletter.component';
 import { SearchComponent } from './search/search.component';
+import { ViewArticleComponent } from './view-article/view-article.component';
+import { ViewCoverletterComponent } from './view-coverletter/view-coverletter.component';
+import { ViewReviewComponent } from './view-review/view-review.component';
 
 
 const routes: Routes = [  
@@ -22,8 +25,10 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'edit-article/:id', component: EditArticleComponent},
   {path: 'add-coverletter', component: AddCoverletterComponent},
-  {path: 'search', component: SearchComponent}
-
+  {path: 'search', component: SearchComponent},
+  {path: 'view/article/:id', component: ViewArticleComponent},
+  {path: 'view/coverletter/:id', component: ViewCoverletterComponent},
+  {path: 'view/review/:id', component: ViewReviewComponent}
 ];
 
 @NgModule({

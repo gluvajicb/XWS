@@ -17,4 +17,9 @@ export class ReviewService {
   add(newReview: string): Observable<any> {
     return this.http.post('http://localhost:8000/review/create', newReview, {headers: this.headers, responseType: 'text'});
   }
+
+  getReview(id: string): Observable<any> {
+    let uri = 'http://localhost:8000/review/' + id;
+    return this.http.get(uri, {headers: this.headers, responseType: 'text'});
+  }
 }

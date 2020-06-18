@@ -10,6 +10,7 @@ export class ArticleService {
 
   private baseUrl = 'http://localhost:8000/';
   private headers = new HttpHeaders({'Content-Type': 'application/xml'});
+  private headers_json = new HttpHeaders({'Content-Type': 'application/json'})
 
   constructor(
     private http: HttpClient
@@ -27,5 +28,10 @@ export class ArticleService {
   getArticle(id: string): Observable<any> {
     let uri = 'http://localhost:8000/article/' + id;
     return this.http.get(uri, {headers: this.headers, responseType: 'text'});
+  }
+
+  searchArticle(searchParams: any): Observable<any> {
+    let uri = 'http://localhost:8000/article/search'
+    return this.http.post(uri, searchParams, {headers: this.headers_json, responseType: 'text'})
   }
 }

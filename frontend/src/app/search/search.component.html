@@ -1,30 +1,31 @@
 <div class="pt-5">
     <h3>Search for an Article</h3>
 
-    Insert Abstract Paragraph:
-    <div style="padding-bottom: 15px;">
-        <input id="name" type="text" formControlName="name">
+    <div class="form__group field row" data-aos="fade-right" data-aos-delay="300" data-aos-duration="700">
+        <input #abst="ngModel" [(ngModel)]="searchParams.abst" type="input" class="form__field" placeholder="Abstract" name="abs" id='abs' required /> <br/>
+        <label for="name" class="form__label">Insert Abstract Paragraph</label> 
     </div>
 
-    Insert Title:
-    <div style="padding-bottom: 15px;">
-        <input id="name" type="text" formControlName="name">
+    <div class="form__group field row" data-aos="fade-right" data-aos-delay="300" data-aos-duration="700">
+        <input #title="ngModel" [(ngModel)]="searchParams.title" type="input" class="form__field" placeholder="Title" name="title" id='title' required /> <br/>
+        <label for="name" class="form__label">Insert Title</label> 
     </div>
 
-    Insert Keyword:
-    <div style="padding-bottom: 15px;">
-        <input id="name" type="text" formControlName="name">
+    <div class="form__group field row" data-aos="fade-right" data-aos-delay="300" data-aos-duration="700">
+        <input #keyword="ngModel" [(ngModel)]="searchParams.keyword" type="input" class="form__field" placeholder="Keyword" name="keyword" id='keyword' required /> <br/>
+        <label for="name" class="form__label">Insert Keyword</label> 
     </div>
 
-    Insert Author:
-    <div style="padding-bottom: 15px;">
-        <input id="name" type="text" formControlName="name">
+    <div class="form__group field row" data-aos="fade-right" data-aos-delay="300" data-aos-duration="700">
+        <input #author="ngModel" [(ngModel)]="searchParams.author" type="input" class="form__field" placeholder="Author" name="author" id='author' required /> <br/>
+        <label for="name" class="form__label">Insert Author</label> 
     </div>
 
-    Insert Section:
-    <div style="padding-bottom: 15px;">
-        <input id="name" type="text" formControlName="name">
+    <div style="padding-bottom: 20px;" class="form__group field row" data-aos="fade-right" data-aos-delay="300" data-aos-duration="700">
+        <input #section="ngModel" [(ngModel)]="searchParams.section" type="input" class="form__field" placeholder="Section" name="section" id='section' required /> <br/>
+        <label for="name" class="form__label">Insert Section</label> 
     </div>
 
+    
     <button (click)="search()" type="button" class="btn btn-primary">Search</button>
 </div>

@@ -1,37 +1,42 @@
-<h3 class="mt-5">Assign Reviwers</h3>
-<table class="table table-dark mt-3">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">    
-            <input type="checkbox" id="exampleCheck1">
-        </th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">
-            <input type="checkbox" id="exampleCheck1">
-        </th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">
-            <input type="checkbox" id="exampleCheck1">
-        </th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
+<div>
+  <h3 class="mt-5">Assign Reviwers</h3>
+  <table class="table table-dark mt-3">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">    
+              <input value="a" (click)="click($event)" name="checkbox1" [(ngModel)]="checkbox1" type="checkbox" id="exampleCheck1">
+          </th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">
+              <input name="checkbox2" [(ngModel)]="checkbox2" type="checkbox" id="exampleCheck1">
+          </th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">
+              <input name="checkbox3" [(ngModel)]="checkbox3" type="checkbox" id="exampleCheck1">
+          </th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
+
+  <button (click)="assign()" type="button" class="btn btn-primary">Assign</button>
+
+</div>

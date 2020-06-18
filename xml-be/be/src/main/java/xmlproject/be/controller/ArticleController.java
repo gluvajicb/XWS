@@ -111,6 +111,7 @@ public class ArticleController {
 
 	 @PostMapping(value="/search", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity< List<String>> search(@RequestBody SearchDTO dto) throws Exception{
+		 System.out.println(dto.getAbst() + " " + dto.getAuthor() + " " + dto.getTitle());
 		 List<String> retVal = articleService.searchArticles(dto.getAbst(), dto.getTitle(), dto.getKeyword(), dto.getAuthor(), dto.getSection());
 			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
 		}
