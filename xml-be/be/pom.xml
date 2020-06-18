@@ -123,6 +123,18 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>5.2.3.RELEASE</version>
 		</dependency>
+		
+		<!-- TRANSFORMATIONS -->
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>fop</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>9.4</version>
+		</dependency>
     </dependencies>
 
 	<build>

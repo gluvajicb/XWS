@@ -34,4 +34,14 @@ export class ArticleService {
     let uri = 'http://localhost:8000/article/search'
     return this.http.post(uri, searchParams, {headers: this.headers_json, responseType: 'text'})
   }
+
+  getPDF(id: string): Observable<any> {
+
+    const httpOptions = {
+      'responseType'  : 'arraybuffer' as 'json'
+       // 'responseType'  : 'blob' as 'json'        //This also worked
+    };
+
+    return this.http.get(`http://localhost:8000/getArticle/PDF/${id}`, httpOptions);
+  }
 }

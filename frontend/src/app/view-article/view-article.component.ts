@@ -3,7 +3,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router'
 import { ArticleService } from '../services/article.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-article',
@@ -16,10 +16,12 @@ export class ViewArticleComponent implements OnInit {
 
   private id: any;
   private sub: any;
+  url: any;
 
   constructor(private route: ActivatedRoute,
               private ArticleService: ArticleService,
-              private router: Router) { }
+              private router: Router,
+              private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.logArticle();
@@ -30,13 +32,17 @@ export class ViewArticleComponent implements OnInit {
       this.id = params['id'];
     });
 
-
-    this.ArticleService.getArticle(this.id).subscribe(
-      result => {
-
-        console.log(result);
-      }
-    );
+    this.ArticleService.getPDF(this.id)
+      .subscribe(
+        res => {
+          const file = new Blob([res], {type: 'application/pdf'});
+          const fileURL = URL.createObjectURL(file);
+          this.url = fileURL;
+          console.log(fileURL);
+          window.open(fileURL);
+        }
+      );
+   
   }
 
 }

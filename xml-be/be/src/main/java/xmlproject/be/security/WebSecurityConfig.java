@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+
 import rs.ac.uns.xmltim.user.Role;
 import xmlproject.be.service.UserService;
 
@@ -78,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.deleteCookies(TOKEN_COOKIE).permitAll();
 	}
 
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/img/**",

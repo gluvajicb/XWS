@@ -1,7 +1,9 @@
 package xmlproject.be.service;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
+import org.apache.jena.shared.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
@@ -10,6 +12,7 @@ import com.github.andrewoma.dexx.collection.ArrayList;
 
 import xmlproject.be.repository.ArticleRepository;
 import xmlproject.be.service.interfaces.ArticleServiceImplementation;
+import xmlproject.be.util.XSLFOTransformer.XSLFOTransformer;
 
 @Service
 public class ArticleService implements ArticleServiceImplementation {
@@ -17,6 +20,9 @@ public class ArticleService implements ArticleServiceImplementation {
 	@Autowired
 	private ArticleRepository articleRepository;
 
+	@Autowired
+	private XSLFOTransformer xslFoTransformer;
+	
 	@Override
 	public String save(String article) throws Exception {
 		return articleRepository.save(article);
@@ -62,6 +68,25 @@ public class ArticleService implements ArticleServiceImplementation {
 	
 	public  List<String> searchArticles(String abst, String title,String keyword,String author,String section) throws Exception {
 		return articleRepository.searchArticles(abst, title, keyword, author, section);
+	}
+	
+	public String findByIdHTML(String id) throws Exception {
+		String coverLetter = articleRepository.findById(id);
+		if(coverLetter == null){
+			throw new NotFoundException(id);
+		}
+		String clHTML = xslFoTransformer.generateHTML(coverLetter, "src/main/resources/data/xslt/article.xsl");
+		return clHTML;
+	}
+
+	public ByteArrayOutputStream findByIdPDF(String id) throws Exception {
+		String coverLetter = articleRepository.findById(id);
+		if(coverLetter == null){
+			throw new NotFoundException(id);
+		}
+		ByteArrayOutputStream clPDF = xslFoTransformer.generatePDF(coverLetter,
+				"src/main/resources/data/xslfo/article-fo.xsl");
+		return clPDF;
 	}
 }
 

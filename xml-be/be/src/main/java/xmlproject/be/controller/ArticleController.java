@@ -1,5 +1,6 @@
 package xmlproject.be.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import xmlproject.be.service.CoverLetterService;
 @RestController
 @RequestMapping(value = "/article")
 @CrossOrigin()
+
 public class ArticleController {
 	@Autowired
 	ArticleService articleService;
@@ -114,6 +116,18 @@ public class ArticleController {
 		 System.out.println(dto.getAbst() + " " + dto.getAuthor() + " " + dto.getTitle());
 		 List<String> retVal = articleService.searchArticles(dto.getAbst(), dto.getTitle(), dto.getKeyword(), dto.getAuthor(), dto.getSection());
 			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
+		}
+	 
+	 @GetMapping(value="/getArticle/HTML/{id}", produces = MediaType.TEXT_HTML_VALUE)
+		public ResponseEntity<String> getHTML(@PathVariable("id") String id) throws Exception{
+			String coverLetter = articleService.findByIdHTML(id);
+			return new ResponseEntity<>(coverLetter, HttpStatus.OK);
+		}
+
+		@GetMapping(value="/getArticle/PDF/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+		public ResponseEntity<byte[]> getPDF(@PathVariable("id") String id) throws Exception{
+			ByteArrayOutputStream coverLetter = articleService.findByIdPDF(id);
+			return new ResponseEntity<>(coverLetter.toByteArray(), HttpStatus.OK);
 		}
 
 }
