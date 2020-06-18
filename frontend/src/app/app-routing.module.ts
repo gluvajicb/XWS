@@ -13,22 +13,23 @@ import { SearchComponent } from './search/search.component';
 import { ViewArticleComponent } from './view-article/view-article.component';
 import { ViewCoverletterComponent } from './view-coverletter/view-coverletter.component';
 import { ViewReviewComponent } from './view-review/view-review.component';
+import {AuthGuard} from './helpers/AuthGuard';
 
 
-const routes: Routes = [  
+const routes: Routes = [
   {path: '', component: HomeComponentComponent},
-  {path: 'add-article', component: AddArticleComponent},
-  {path: 'add-review/:id', component: AddReviewComponent},
-  {path: 'my-articles', component: MyArticlesComponent},
-  {path: 'assign-reviewers', component: AssignReviewersComponent},
+  {path: 'add-article', component: AddArticleComponent, canActivate: [AuthGuard]},
+  {path: 'add-review/:id', component: AddReviewComponent, canActivate: [AuthGuard]},
+  {path: 'my-articles', component: MyArticlesComponent, canActivate: [AuthGuard]},
+  {path: 'assign-reviewers', component: AssignReviewersComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'edit-article/:id', component: EditArticleComponent},
-  {path: 'add-coverletter', component: AddCoverletterComponent},
-  {path: 'search', component: SearchComponent},
-  {path: 'view/article/:id', component: ViewArticleComponent},
-  {path: 'view/coverletter/:id', component: ViewCoverletterComponent},
-  {path: 'view/review/:id', component: ViewReviewComponent}
+  {path: 'edit-article/:id', component: EditArticleComponent, canActivate: [AuthGuard]},
+  {path: 'add-coverletter', component: AddCoverletterComponent, canActivate: [AuthGuard]},
+  {path: 'search', component: SearchComponent, canActivate: [AuthGuard]},
+  {path: 'view/article/:id', component: ViewArticleComponent, canActivate: [AuthGuard]},
+  {path: 'view/coverletter/:id', component: ViewCoverletterComponent, canActivate: [AuthGuard]},
+  {path: 'view/review/:id', component: ViewReviewComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

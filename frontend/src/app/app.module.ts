@@ -21,6 +21,9 @@ import { ViewArticleComponent } from './view-article/view-article.component';
 import { ViewCoverletterComponent } from './view-coverletter/view-coverletter.component';
 import { ViewReviewComponent } from './view-review/view-review.component';
 import { PdfViewerModule} from 'ng2-pdf-viewer'
+import {SecurityService} from './services/security/security.service';
+import {authInterceptorProviders} from './helpers/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +42,6 @@ import { PdfViewerModule} from 'ng2-pdf-viewer'
     ViewArticleComponent,
     ViewCoverletterComponent,
     ViewReviewComponent
-
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,10 @@ import { PdfViewerModule} from 'ng2-pdf-viewer'
     ReactiveFormsModule, 
     PdfViewerModule
   ],
-  providers: [],
+  providers: [
+    SecurityService,
+    authInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
