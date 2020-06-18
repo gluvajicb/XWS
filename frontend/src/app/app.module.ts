@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewArticleComponent } from './view-article/view-article.component';
 import { ViewCoverletterComponent } from './view-coverletter/view-coverletter.component';
 import { ViewReviewComponent } from './view-review/view-review.component';
+import { PdfViewerModule} from 'ng2-pdf-viewer'
 import {SecurityService} from './services/security/security.service';
 import {authInterceptorProviders} from './helpers/auth.interceptor';
 
@@ -47,7 +48,8 @@ import {authInterceptorProviders} from './helpers/auth.interceptor';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
+    PdfViewerModule
   ],
   providers: [
     SecurityService,
