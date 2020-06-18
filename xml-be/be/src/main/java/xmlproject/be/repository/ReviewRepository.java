@@ -20,6 +20,7 @@ import org.xmldb.api.modules.XMLResource;
 
 import rs.ac.uns.xmltim.review.Review;
 import xmlproject.be.service.ArticleService;
+import xmlproject.be.service.ProcessService;
 import xmlproject.be.util.Authentication.AuthenticationUtilities;
 import xmlproject.be.util.Authentication.AuthenticationUtilities.ConnectionProperties;
 import xmlproject.be.util.Exist.RetriveData;
@@ -33,6 +34,10 @@ public class ReviewRepository {
 
 	@Autowired
 	ArticleService articleService;
+	
+
+	@Autowired
+	ProcessService processService;
 	
 	public static String articleCollectionId = "/db/XWS/review";
 	public static String articleSchemaPath = "src/main/resources/data/Review.xsd";
@@ -90,6 +95,7 @@ public class ReviewRepository {
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			marshaller.marshal(coverLetter, stream);
 			reviewXML = new String(stream.toByteArray());
+			
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
@@ -105,7 +111,7 @@ public class ReviewRepository {
 		}
 		this.delete(id);
 		Review review = null;
-		
+		System.out.println(reviewOld.getID());
 		try {
 
 			JAXBContext jaxbContext = JAXBContext.newInstance(Review.class);
@@ -116,6 +122,8 @@ public class ReviewRepository {
 			review = (Review) unmarshaller.unmarshal(sr);
 			System.out.println(review.getID());
 			review.setID(id);
+			review.setArticleId(reviewOld.getArticleId());
+			review.setWorkflowId(reviewOld.getWorkflowId());
 			String ret = articleService.findById(review.getArticleId());
 			if(ret == null)
 				throw new Exception("Article not found");
@@ -126,6 +134,9 @@ public class ReviewRepository {
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			marshaller.marshal(review, stream);
 			reviewXML = new String(stream.toByteArray());
+			processService.submitReview(id, review.getWorkflowId());
+			System.out.println(review.getID());
+
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}

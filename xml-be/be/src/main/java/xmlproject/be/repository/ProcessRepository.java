@@ -67,7 +67,7 @@ public class ProcessRepository {
 				Review newReview = new Review();
 				newReview.setArticleId(process.getArticleId());
 				newReview.setWorkflowId(Id);
-				
+				el.setStatus("waiting");
 				String revierId = reviewRepository.save(newReview);
 				el.setReviewId(revierId);
 			}
@@ -122,6 +122,34 @@ public class ProcessRepository {
 		
 
 		StoreData.store(processCollectionId, id, processXML);
+		return id;
+	}
+	
+	public String update(String id, Process processXML) throws Exception {
+		Process processOld = this.findCLById(id);
+		String processRet = "";
+
+		if (processOld == null) {
+			throw new Exception("No process with this id");
+		}
+		this.delete(id);
+		try {
+
+			JAXBContext context = JAXBContext.newInstance(Process.class);
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			
+			processXML.setID(id);
+			marshaller.marshal(processXML, stream);
+			processRet = new String(stream.toByteArray());
+			System.out.println(processRet);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		
+
+		StoreData.store(processCollectionId, id, processRet);
 		return id;
 	}
 	
@@ -222,6 +250,20 @@ public class ProcessRepository {
 
 		retVal += id;
 		return retVal;
+	}
+	
+	public String submitReview(String reviewId, String processId) throws Exception {
+		Process process = this.findCLById(processId);
+		System.out.println(reviewId);
+		for(ReviewElement r : process.getReviews().getReviewElement()) {
+			if(r.getReviewId().equals(reviewId)) {
+				r.setStatus("reviewed");
+				System.out.println("REVIEWWDD");
+			}
+		}
+
+		this.update(processId, process);
+		return processId;
 	}
 	
 	public List<String> getReviewsForUser(String reviewerId) throws Exception {

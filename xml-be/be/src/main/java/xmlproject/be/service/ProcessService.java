@@ -37,4 +37,9 @@ public class ProcessService implements ProcesServiceImplementation{
 		return processRepository.getReviewsForUser(reviewerId);
 	}
 	
+	public String submitReview(String reviewId, String processID) throws Exception {
+		return processRepository.submitReview(reviewId, processID);
+	}
+	
+	
 }
