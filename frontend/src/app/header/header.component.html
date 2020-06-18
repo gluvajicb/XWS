@@ -1,23 +1,37 @@
 <nav class="navbar navbar-inverse navbar-expand-lg  navigation navbar-fixed-top" style="background-color: #1A1A1A">
    <div class="container">
-     <div class="navbar-header">
-       <h1 class="navbar-brand" href="#" >|||<span class="textBlue" >Scientific</span><span class="monsBold">Articles</span></h1>
-     </div>
+       <div class="navbar-header">
+         <h1 class="navbar-brand" href="#" >|||<span class="textBlue" >Scientific</span><span class="monsBold">Articles</span></h1>
+       </div>
 
-       <ul class="navbar-nav">
+       <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
          <li class="nav-item active">
-           <a class="nav-link">Home<span class="sr-only">(current)</span></a>
+           <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/']" href="#">Home<span class="sr-only">(current)</span></a>
          </li>
-         <li class="nav-item active">
-            <a class="nav-link">Advanced search<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link">My Articles<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link">Add Article<span class="sr-only">(current)</span></a>
-          </li>
+         <li class="nav-item">
+           <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/login']" href="#">Login</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/register']" href="#">Register</a>
+         </li>
        </ul>
 
+       <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+         <li class="nav-item active">
+           <a class="nav-link text-white">Home<span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item active">
+           <a class="nav-link text-white">Advanced search<span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item active">
+           <a class="nav-link text-white">My Articles<span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item active">
+           <a class="nav-link text-white">Add Article<span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item">
+           <a href class="nav-link text-white" (click)="logout()">Logout</a>
+         </li>
+       </ul>
    </div>
  </nav>

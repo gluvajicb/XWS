@@ -134,7 +134,7 @@ public class UserService implements UserDetailsService {
 
         User user = new User(userDTO);
         user.setPassword(bCryptPasswordEncoder.encode(userDTO.password));
-        user.setRole(Role.AUTHOR);
+        user.setRole(Role.EDITOR);
 
         userRepository.save(user);
 

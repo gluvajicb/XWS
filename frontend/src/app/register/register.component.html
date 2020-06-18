@@ -1,27 +1,78 @@
 <div class="">
+  <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
     <div class="form__group field row" data-aos="fade-right" data-aos-delay="300" data-aos-duration="700">
-        <input type="input" class="form__field" placeholder="Username" name="username" id='username' required /> <br/>
-        <label for="name" class="form__label">Username</label> 
-    </div>
-    <div class="form__group field row" data-aos="fade-right" data-aos-delay="300" data-aos-duration="700">
-        <input type="input" class="form__field" placeholder="Name" name="name" id='name' required /> <br/>
-        <label for="name" class="form__label">Name</label> 
+        <input type="text" class="form__field" placeholder="Username" name="username" id='username' [(ngModel)]="form.username" required minlength="3" maxlength="20" #username="ngModel" /> <br/>
+        <label for="username" class="form__label">Username</label>
+        <div class="alert-danger" *ngIf="f.submitted && username.invalid">
+          <div *ngIf="username.errors.required">Username is required</div>
+          <div *ngIf="username.errors.minlength">
+            Username must be at least 3 characters
+          </div>
+          <div *ngIf="username.errors.maxlength">
+            Username must be at most 20 characters
+          </div>
+        </div>
     </div>
 
     <div class="form__group field row" data-aos="fade-right" data-aos-delay="300" data-aos-duration="700">
-        <input type="input" class="form__field" placeholder="Surname" name="surname" id='surname' required /> <br/>
-        <label for="name" class="form__label">Surname</label> 
+      <input type="text" class="form__field" placeholder="Email" name="email" id='email' [(ngModel)]="form.email" required email #email="ngModel" /> <br/>
+      <label for="email" class="form__label">Email</label><div class="alert-danger" *ngIf="f.submitted && email.invalid">
+      <div *ngIf="email.errors.required">Email is required</div>
+        <div *ngIf="email.errors.email">
+          Email must be a valid email address
+        </div>
+      </div>
     </div>
 
     <div class="form__group field row" data-aos="fade-right" data-aos-delay="300" data-aos-duration="700">
-        <input type="input" class="form__field" placeholder="Email" name="email" id='email' required /> <br/>
-        <label for="name" class="form__label">Email</label> 
+        <input type="text" class="form__field" placeholder="Name" name="name" id='name' [(ngModel)]="form.name" required minlength="3" maxlength="50" #name="ngModel" /> <br/>
+        <label for="name" class="form__label">Name</label>
+        <div class="alert-danger" *ngIf="f.submitted && name.invalid">
+          <div *ngIf="name.errors.required">Name is required</div>
+          <div *ngIf="name.errors.minlength">
+            Name must be at least 3 characters
+          </div>
+          <div *ngIf="name.errors.maxlength">
+            Name must be at most 20 characters
+          </div>
+        </div>
     </div>
-    
+
+    <div class="form__group field row" data-aos="fade-right" data-aos-delay="300" data-aos-duration="700">
+        <input type="text" class="form__field" placeholder="Surname" name="surname" id='surname' [(ngModel)]="form.surname" required minlength="3" maxlength="50" #surname="ngModel" /> <br/>
+        <label for="surname" class="form__label">Surname</label>
+        <div class="alert-danger" *ngIf="f.submitted && surname.invalid">
+          <div *ngIf="surname.errors.required">Surname is required</div>
+          <div *ngIf="surname.errors.minlength">
+            Surname must be at least 3 characters
+          </div>
+          <div *ngIf="surname.errors.maxlength">
+            Surname must be at most 20 characters
+          </div>
+        </div>
+    </div>
+
     <div class="form__group field row" data-aos="fade-right" data-aos-delay="500" data-aos-duration="700">
-        <input type="input" class="form__field" placeholder="Password" name="password" id='password' required /><br/>
-        <label for="name" class="form__label">Password</label>
+        <input type="password" class="form__field" placeholder="Password" name="password" id='password' [(ngModel)]="form.password" required minlength="6" maxlength="20" #password="ngModel" /><br/>
+        <label for="password" class="form__label">Password</label>
+        <div class="alert-danger" *ngIf="f.submitted && password.invalid">
+          <div *ngIf="password.errors.required">Password is required</div>
+          <div *ngIf="password.errors.minlength">
+            Password must be at least 6 characters
+          </div>
+        </div>
     </div>
 
-  <button type="button" class="btn btn-primary mt-5">Register</button>
+    <button class="btn btn-primary mt-5">Register</button>
+
+    <br><br>
+
+    <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+      Signup failed!<br />{{ errorMessage }}
+    </div>
+  </form>
+
+  <div id="successAlert" class="alert alert-success" *ngIf="isSuccessful">
+    Your registration is successful!
+  </div>
 </div>
