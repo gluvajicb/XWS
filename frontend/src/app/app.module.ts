@@ -20,6 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewArticleComponent } from './view-article/view-article.component';
 import { ViewCoverletterComponent } from './view-coverletter/view-coverletter.component';
 import { ViewReviewComponent } from './view-review/view-review.component';
+import {SecurityService} from './services/security/security.service';
+import {authInterceptorProviders} from './helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,6 @@ import { ViewReviewComponent } from './view-review/view-review.component';
     ViewArticleComponent,
     ViewCoverletterComponent,
     ViewReviewComponent
-
   ],
   imports: [
     BrowserModule,
@@ -48,7 +49,10 @@ import { ViewReviewComponent } from './view-review/view-review.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    SecurityService,
+    authInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
