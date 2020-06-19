@@ -66,8 +66,8 @@ public class ArticleService implements ArticleServiceImplementation {
 		return articleRepository.getAllSubmitted();
 	}
 	
-	public  List<String> searchArticles(String abst, String title,String keyword,String author,String section) throws Exception {
-		return articleRepository.searchArticles(abst, title, keyword, author, section);
+	public  List<String> searchArticles(String abst, String title,String keyword,String author,String section, String status) throws Exception {
+		return articleRepository.searchArticles(abst, title, keyword, author, section, status);
 	}
 	
 	public String findByIdHTML(String id) throws Exception {

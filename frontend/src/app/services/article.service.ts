@@ -30,6 +30,11 @@ export class ArticleService {
     return this.http.get(uri, {headers: this.headers, responseType: 'text'});
   }
 
+  getAllSubmitted(): Observable<any> {
+    let uri = 'http://localhost:8000/article/submitted'
+    return this.http.get(uri, {headers: this.headers, responseType: 'text'});
+  }
+
   searchArticle(searchParams: any): Observable<any> { // Promenio sam sa Observable<string[]> na Observable<any>
     let uri = 'http://localhost:8000/article/search'
     return this.http.post(uri, searchParams, {headers: this.headers_json});

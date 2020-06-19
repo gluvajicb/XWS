@@ -24,10 +24,10 @@
           <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/search']" href="#">Advanced search</a>
         </li>
          <li class="nav-item active">
-           <a class="nav-link text-white">My Articles<span class="sr-only">(current)</span></a>
+          <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/my-articles']" href="#">My Articles</a>
          </li>
          <li class="nav-item active">
-           <a class="nav-link text-white">Add Article<span class="sr-only">(current)</span></a>
+          <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/add-article']" href="#">Add article</a>
          </li>
          <li class="nav-item">
            <a href class="nav-link text-white" (click)="logout()">Logout</a>

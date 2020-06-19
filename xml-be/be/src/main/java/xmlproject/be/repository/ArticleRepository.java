@@ -348,7 +348,7 @@ public class ArticleRepository {
 	}
 	
 	public List<String> getAllSubmitted() throws Exception {
-		String xQuery = "//article[status=\"" + "submitted" + "\"" + "]]";
+		String xQuery = "//article[status=\"" + "submitted" + "\"" + "]";
 		List<String> retVal = new ArrayList<>();
 		XMLResource ret = null;
 
@@ -371,8 +371,8 @@ public class ArticleRepository {
 		return retVal;
 	}
 	
-	public List<String> searchArticles(String abst, String title, String keyword, String author, String section) throws Exception {
-		String xQuery = "//article[status=\"" + "in_progress" + "\""
+	public List<String> searchArticles(String abst, String title, String keyword, String author, String section, String status) throws Exception {
+		String xQuery = "//article[status=\"" + status + "\""
 				+ " and (./abstract/paragraph[text[contains(text(), '" + abst + "')]] "
 				+ "or ./title[contains(text(), '" + title + "')] "
 				+ "or ./abstract/keywords[keyword[contains(text(), '" + keyword + "')]]"

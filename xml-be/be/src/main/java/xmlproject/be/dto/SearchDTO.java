@@ -6,6 +6,22 @@ public class SearchDTO {
 	String keyword;
 	String author;
 	String section;
+	String status;
+	public SearchDTO(String abst, String title, String keyword, String author, String section, String status) {
+		super();
+		this.abst = abst;
+		this.title = title;
+		this.keyword = keyword;
+		this.author = author;
+		this.section = section;
+		this.status = status;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getAbst() {
 		return abst;
 	}
@@ -34,14 +50,6 @@ public class SearchDTO {
 		return section;
 	}
 	public void setSection(String section) {
-		this.section = section;
-	}
-	public SearchDTO(String abst, String title, String keyword, String author, String section) {
-		super();
-		this.abst = abst;
-		this.title = title;
-		this.keyword = keyword;
-		this.author = author;
 		this.section = section;
 	}
 	

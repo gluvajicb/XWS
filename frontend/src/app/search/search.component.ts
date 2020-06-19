@@ -34,7 +34,8 @@ export class SearchComponent implements OnInit {
                          "title": "" +  this.searchParams.title,
                          "keyword": "" +  this.searchParams.keyword,
                          "author": "" +  this.searchParams.author,
-                         "section": "" +  this.searchParams.section
+                         "section": "" +  this.searchParams.section,
+                         "status": "submitted"
                      };
 
     console.log(searchParams_JSON)
