@@ -53,14 +53,18 @@ export class SearchComponent implements OnInit {
           parseString(result[i], function (err, result1) {
 
             let j;
+            let authors = []
             for(j = 0; j < result1["ns1:article"]["ns1:authors"].length; j ++){
-              console.log(result1["ns1:article"]["ns1:authors"][j]["ns1:author"])
+              
+              console.log(result1["ns1:article"]["ns1:authors"][j]["ns1:author"][0]["ns1:name"] + " " + result1["ns1:article"]["ns1:authors"][j]["ns1:author"][0]["ns1:surname"] + ", ")
+              console.log(result1["ns1:article"]["ns1:authors"][j])
+              authors[j] = result1["ns1:article"]["ns1:authors"][j]["ns1:author"][0]["ns1:name"] + " " + result1["ns1:article"]["ns1:authors"][j]["ns1:author"][0]["ns1:surname"] + ", ";
             }
             let retVal = {
               "title": result1["ns1:article"]["ns1:title"],
-              "authors": result1["ns1:article"]["ns1:authors"]
+              "authors": authors
             }
-            res = result1
+            res = retVal
           });
 
           this.articles[i] = res

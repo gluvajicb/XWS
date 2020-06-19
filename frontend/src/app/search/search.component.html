@@ -30,7 +30,7 @@
     <button (click)="search()" type="button" class="btn btn-primary">Search</button>
 
     <div class="article-details" *ngFor="item of articles; let i = index" >
-        <h1>Article title</h1> <br />
+        <h1>{{item.title}}</h1> <br />
         Authors: 
         <ul>
             <li>Nina Petrovic, University</li>
