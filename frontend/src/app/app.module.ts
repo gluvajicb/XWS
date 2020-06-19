@@ -24,6 +24,7 @@ import { PdfViewerModule} from 'ng2-pdf-viewer'
 import {SecurityService} from './services/security/security.service';
 import {authInterceptorProviders} from './helpers/auth.interceptor';
 import { NewArticlesComponent } from './new-articles/new-articles.component';
+import { ReviewedArticlesComponent } from './reviewed-articles/reviewed-articles.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { NewArticlesComponent } from './new-articles/new-articles.component';
     ViewArticleComponent,
     ViewCoverletterComponent,
     ViewReviewComponent,
-    NewArticlesComponent
+    NewArticlesComponent,
+    ReviewedArticlesComponent
   ],
   imports: [
     BrowserModule,
