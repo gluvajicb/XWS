@@ -15,6 +15,7 @@ import { ViewCoverletterComponent } from './view-coverletter/view-coverletter.co
 import { ViewReviewComponent } from './view-review/view-review.component';
 import {AuthGuard} from './helpers/AuthGuard';
 import { NewArticlesComponent } from './new-articles/new-articles.component';
+import { ReviewedArticlesComponent } from './reviewed-articles/reviewed-articles.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,8 @@ const routes: Routes = [
   {path: 'view/coverletter/:id', component: ViewCoverletterComponent, canActivate: [AuthGuard]}, // CoverLetter ID
   {path: 'view/review/:id', component: ViewReviewComponent, canActivate: [AuthGuard]}, // Review ID
   {path: 'new-articles', component: NewArticlesComponent, canActivate: [AuthGuard]},
+  {path: 'reviewed-articles', component: ReviewedArticlesComponent, canActivate: [AuthGuard]},
+
 ];
 
 @NgModule({
