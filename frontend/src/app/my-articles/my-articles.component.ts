@@ -50,14 +50,17 @@ export class MyArticlesComponent implements OnInit {
 
     this.ArticleService.searchArticle(searchParams_JSON).subscribe(
       result => {
-        this.articles = result
+//        this.articles = result
+        this.articles.splice(0, this.articles.length)
         console.log("Rezultat ispod")
         console.log(result)
 
        /* */
        let parseString = require('xml2js').parseString;
        let i;
+
        for (i = 0; i < result.length; i++) {
+         
          console.log(result[i]);
          let res;
          let authors = [];
@@ -79,11 +82,11 @@ export class MyArticlesComponent implements OnInit {
                keywords[k] = result1["ns1:article"]["ns1:abstract"][0]["ns1:keywords"][k]["ns1:keyword"];
              }
            }
-           
            let retVal = {
              "title": result1["ns1:article"]["ns1:title"],
              "authors": authors,
-             "keywords" : keywords
+             "keywords" : keywords,
+             "id": result1["ns1:article"]["$"]["ns1:ID"]
            }
            res = retVal
          });
@@ -98,6 +101,24 @@ export class MyArticlesComponent implements OnInit {
        
      }
    );
+  }
+
+  submit(id: string) {
+    this.ArticleService.submit(id).subscribe(
+      result => { 
+        this.getArticles();
+      }
+    );
+    console.log(id)
+  }
+
+  delete(id: string) {
+    this.ArticleService.delete(id).subscribe(
+      result => { 
+        this.getArticles();
+      }
+    );
+    console.log(id)
   }
 
 }

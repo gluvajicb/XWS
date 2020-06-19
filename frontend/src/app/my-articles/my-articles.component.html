@@ -28,4 +28,9 @@
           <li>{{keyword}}</li>
       </ul>
   </div>
+  <div *ngIf="status == 'accepted'" class="mt-5">
+    <button (click)="submit(item.id)" type="button" class="btn btn-primary mr-3">Submit</button>
+    <button (click)="delete(item.id)" type="button" class="btn btn-primary">Delete</button>
+
+  </div>
 </div>
