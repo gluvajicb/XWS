@@ -29,16 +29,18 @@
     
     <button (click)="search()" type="button" class="btn btn-primary">Search</button>
 
-    <div class="article-details" *ngFor="item of articles; let i = index" >
+    <div class="article-details" *ngFor="let item of articles; let i = index" >
         <h1>{{item.title}}</h1> <br />
         Authors: 
-        <ul>
-            <li>Nina Petrovic, University</li>
+        <ul *ngFor="let author of item.authors; let j = index">
+            <li>{{author}}</li>
         </ul>
         <br />
         Keywords: 
-        <ul>
-            <li>Nina Petrovic, University</li>
-        </ul>
+        <div *ngIf="item.keywords">
+            <ul *ngFor="let keyword of item.keywords; let j = index">
+                <li>{{keyword}}</li>
+            </ul>
+        </div>
     </div>
 </div>

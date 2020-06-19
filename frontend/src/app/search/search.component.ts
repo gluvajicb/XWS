@@ -20,7 +20,6 @@ export class SearchComponent implements OnInit {
               private fb: FormBuilder) {
 
     this.searchParams = new SearchParams();
-
   }
 
   ngOnInit() {
@@ -49,20 +48,29 @@ export class SearchComponent implements OnInit {
           console.log(result[i]);
           let res;
           let authors = [];
+          let keywords = [];
           
           parseString(result[i], function (err, result1) {
+            
+            console.log(result1)
 
-            let j;
+            let j, k;
             let authors = []
-            for(j = 0; j < result1["ns1:article"]["ns1:authors"].length; j ++){
-              
-              console.log(result1["ns1:article"]["ns1:authors"][j]["ns1:author"][0]["ns1:name"] + " " + result1["ns1:article"]["ns1:authors"][j]["ns1:author"][0]["ns1:surname"] + ", ")
-              console.log(result1["ns1:article"]["ns1:authors"][j])
-              authors[j] = result1["ns1:article"]["ns1:authors"][j]["ns1:author"][0]["ns1:name"] + " " + result1["ns1:article"]["ns1:authors"][j]["ns1:author"][0]["ns1:surname"] + ", ";
+            for(j = 0; j < result1["ns1:article"]["ns1:authors"][0]["ns1:author"].length; j ++){
+
+              authors[j] = result1["ns1:article"]["ns1:authors"][0]["ns1:author"][j]["ns1:name"] + " " + result1["ns1:article"]["ns1:authors"][0]["ns1:author"][j]["ns1:surname"];
             }
+            if(result1["ns1:article"]["ns1:abstract"][0]["ns1:keywords"] !== undefined) {
+              for(k = 0; k < result1["ns1:article"]["ns1:abstract"][0]["ns1:keywords"].length; k++){
+
+                keywords[k] = result1["ns1:article"]["ns1:abstract"][0]["ns1:keywords"][k]["ns1:keyword"];
+              }
+            }
+            
             let retVal = {
               "title": result1["ns1:article"]["ns1:title"],
-              "authors": authors
+              "authors": authors,
+              "keywords" : keywords
             }
             res = retVal
           });
