@@ -1,1 +1,17 @@
-<p>home-component works!</p>
+<div class="pt-5">
+
+    <div class="article-details" *ngFor="let item of articles; let i = index" >
+        <h1>{{item.title}}</h1> <br />
+        Authors: 
+        <ul *ngFor="let author of item.authors; let j = index">
+            <li>{{author}}</li>
+        </ul>
+        <br />
+        Keywords: 
+        <div *ngIf="item.keywords">
+            <ul *ngFor="let keyword of item.keywords; let j = index">
+                <li>{{keyword}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
