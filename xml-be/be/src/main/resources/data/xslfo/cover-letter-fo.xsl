@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.uns.ac.rs/XMLtim" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.uns.ac.rs/XMLtim/CoverLetter" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="2.0">
     <xsl:template match="/ns1:coverLetter">
         <fo:root>
             <fo:layout-master-set>
@@ -18,7 +18,7 @@
                         <xsl:value-of select="ns1:submission_date" />
                     </fo:block>
 
-                    <fo:block>
+                    <fo:block space-before="30px">
                         <xsl:value-of select="ns1:text" />
                     </fo:block>
                 </fo:flow>
