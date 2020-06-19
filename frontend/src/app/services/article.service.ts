@@ -32,7 +32,7 @@ export class ArticleService {
 
   getAllSubmitted(): Observable<any> {
     let uri = 'http://localhost:8000/article/submitted'
-    return this.http.get(uri, {headers: this.headers, responseType: 'text'});
+    return this.http.get(uri, {headers: this.headers});
   }
 
   searchArticle(searchParams: any): Observable<any> { // Promenio sam sa Observable<string[]> na Observable<any>
