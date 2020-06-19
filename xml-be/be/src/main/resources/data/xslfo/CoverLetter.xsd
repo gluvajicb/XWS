@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.uns.ac.rs/XMLtim" xmlns="http://www.uns.ac.rs/XMLtim">
+    <xs:element name="coverLetter">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="xs:string"/>
+                <xs:element name="articleId" type="xs:string" />
+                <xs:element name="submission_date" type="xs:date" />
+                <xs:element name="text" type="xs:string" />
+            </xs:sequence>
+            <xs:attribute ref="ID" use="required"/>
+            
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:attribute name="ID" type="xs:string"/>
+</xs:schema>

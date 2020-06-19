@@ -12,24 +12,26 @@
                 <fo:flow flow-name="xsl-region-body">
                     <fo:block text-align="center" font-family="sans-serif" font-size="18px" font-weight="bold" padding="10px">
                         <xsl:text>Review for article ID:</xsl:text>
-                        <fo:inline font-weight="bold">
+                        <fo:block font-weight="bold">
                             <xsl:value-of select="ns1:article_id" />
-                        </fo:inline>
+                        </fo:block>
                     </fo:block>
 
-                    <fo:block>
-                        <xsl:text>Overall:</xsl:text>
+                    <fo:block text-align="center">
+                        <xsl:text>Overall recommendation:</xsl:text>
                         <fo:inline font-weight="bold">
                             <xsl:value-of select="ns1:overall_recommendation" />
                         </fo:inline>
                     </fo:block>
 
                     <fo:block>
-                        <xsl:text>Questionnaire:</xsl:text>
+                        <fo:block text-align="center" font-family="sans-serif" font-size="18px" font-weight="bold" padding="10px" space-before="30px">
+                            <xsl:text>Questionnaire:</xsl:text>
+                        </fo:block>
                         <xsl:for-each select="ns1:questionnaire/ns1:question_element">
-                            <fo:block>
+                            <fo:block space-before="20px">
                                 <xsl:text>Question:</xsl:text>
-                                <fo:block font-weight="bold">
+                                <fo:block font-weight="bold" space-after="10px">
                                     <xsl:value-of select="ns1:question" />
                                 </fo:block>
                                 <xsl:text>Response:</xsl:text>
@@ -41,17 +43,21 @@
                     </fo:block>
 
                     <fo:block>
-                        <xsl:text>Comments:</xsl:text>
-                        <fo:block font-weight="bold">
+                        <fo:block text-align="center" font-family="sans-serif" font-size="18px" font-weight="bold" padding="10px" space-before="30px">
+                            <xsl:text>Comments:</xsl:text>
+                        </fo:block>
+                        <fo:block>
                             <xsl:value-of select="ns1:comments" />
                         </fo:block>
                     </fo:block>
 
                     <fo:block>
-                        <xsl:text>Confidential comments:</xsl:text>
-                        <fo:inline font-weight="bold">
+                        <fo:block text-align="center" font-family="sans-serif" font-size="18px" font-weight="bold" padding="10px" space-before="30px">
+                            <xsl:text>Confidential comments:</xsl:text>
+                        </fo:block>
+                        <fo:block>
                             <xsl:value-of select="ns1:confidental-comments" />
-                        </fo:inline>
+                        </fo:block>
                     </fo:block>
                 </fo:flow>
             </fo:page-sequence>
