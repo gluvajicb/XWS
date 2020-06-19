@@ -23,11 +23,17 @@
          <li class="nav-item active">
           <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/search']" href="#">Advanced search</a>
         </li>
-         <li class="nav-item active">
+         <li class="nav-item active"  *ngIf="isAuthor">
           <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/my-articles']" href="#">My Articles</a>
          </li>
-         <li class="nav-item active">
+         <li class="nav-item active"  *ngIf="isAuthor">
           <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/add-article']" href="#">Add article</a>
+         </li>
+         <li class="nav-item active"  *ngIf="isAdmin">
+          <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/new-articles']" href="#">New articles</a>
+         </li>
+         <li class="nav-item active"  *ngIf="isAdmin">
+          <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="['/reviewed-articles']" href="#">Reviewed articles</a>
          </li>
          <li class="nav-item">
            <a href class="nav-link text-white" (click)="logout()">Logout</a>

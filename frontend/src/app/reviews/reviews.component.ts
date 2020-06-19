@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ReviewService } from '../services/review.service';
 import { FormBuilder } from '@angular/forms';
 import {} from 'xml2js'
+import { unwatchFile } from 'fs';
 
 
 @Component({
@@ -39,7 +40,6 @@ export class ReviewsComponent implements OnInit {
     this.ReviewService.getReviewsForArticle(this.id).subscribe(
         result => {
 
-            this.reviews = result
             console.log("Ovde je result")
             console.log(result)
 
@@ -48,22 +48,24 @@ export class ReviewsComponent implements OnInit {
             let i;
             for (i = 0; i < result.length; i++) {
 
-                let res;
+                let res = null;
 
                 parseString(result[i], function(err, result1){
                   console.log(result1)
-                  console.log(result1["review"]["overall_recommendation"])
-
-                  let retVal = {
-                    "overall_recommendation": result1["review"]["overall_recommendation"],
-                    "comments": result1["review"]["comments"],
-                    "confidential-comments": result1["review"]["confidential-comments"],
+                  console.log(result1["review"]["overall_recommendation"] !== undefined)
+                  if(result1["review"]["overall_recommendation"] !== undefined){
+                    let retVal = {
+                      "overall_recommendation": result1["review"]["overall_recommendation"],
+                      "comments": result1["review"]["comments"],
+                      "confidential-comments": result1["review"]["confidential-comments"],
                   }
 
                   res = retVal
+                }
                 });
-
-                this.reviews[i] = res
+                if(res !== null) {
+                  this.reviews[i] = res
+                }
 
             }
         }

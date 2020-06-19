@@ -32,12 +32,25 @@
       </ul>
   </div>
   <div *ngIf="status == 'accepted'" class="mt-5">
-    <button (click)="submit(item.id)" type="button" class="btn btn-primary mr-3">Submit</button>
-    <button (click)="delete(item.id)" type="button" class="btn btn-primary">Delete</button>
+    <button (click)="submit(item.id)" type="button" class="btn btn-dark mr-3">Submit</button>
+    <button (click)="delete(item.id)" type="button" class="btn btn-dark">Delete</button>
+    <button (click)="reviews(item.id)" type="button" class="btn btn-dark ml-5">View Reviews</button>
+
+  </div>
+  <div *ngIf="status == 'rejected'" class="mt-5">
+    <button (click)="reviews(item.id)" type="button" class="btn btn-dark ml-5">View Reviews</button>
+
+  </div>
+
+  <div *ngIf="status == 'submitted'" class="mt-5">
+    <button (click)="reviews(item.id)" type="button" class="btn btn-dark ml-5">View Reviews</button>
+
   </div>
 
   <div *ngIf="status == 'revising'" class="mt-5">
-    <button (click)="edit(item.id)" type="button" class="btn btn-primary mr-3">Edit Article</button>
-    <button (click)="delete(item.id)" type="button" class="btn btn-primary">Delete</button>
+    <button (click)="edit(item.id)" type="button" class="btn btn-dark mr-3">Edit Article</button>
+    <button (click)="delete(item.id)" type="button" class="btn btn-dark">Delete</button>
+    <button (click)="reviews(item.id)" type="button" class="btn btn-dark ml-5">View Reviews</button>
+
   </div>
 </div>

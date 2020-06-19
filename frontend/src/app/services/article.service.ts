@@ -35,6 +35,16 @@ export class ArticleService {
     return this.http.post(uri, {headers: this.headers, responseType: 'text'});
   }
 
+  accept(id: string): Observable<any> {
+    let uri = 'http://localhost:8000/article/' + id+'/accept';
+    return this.http.post(uri, {headers: this.headers, responseType: 'text'});
+  }
+
+  reject(id: string): Observable<any> {
+    let uri = 'http://localhost:8000/article/' + id+'/reject';
+    return this.http.post(uri, {headers: this.headers, responseType: 'text'});
+  }
+
   delete(id: string): Observable<any> {
     let uri = 'http://localhost:8000/article/delete/' + id;
     return this.http.post(uri, {headers: this.headers, responseType: 'text'});

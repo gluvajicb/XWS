@@ -87,7 +87,7 @@ export class AssignReviewersComponent implements OnInit {
 
     this.ProcessService.add(process as string).subscribe(
       result => {
-        this.router.navigate(['home']);
+        this.router.navigate(['new-articles']);
       }
     )
 

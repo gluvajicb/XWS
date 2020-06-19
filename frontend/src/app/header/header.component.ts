@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   isAdmin = false;
   username: string;
   title = 'Pomoz\'Boze';
-
+  isAuthor = false;
   constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
       this.isAdmin = this.roles.includes('editor');
+      this.isAuthor = this.roles.includes('author');
+
       this.username = user.username;
     }
   }

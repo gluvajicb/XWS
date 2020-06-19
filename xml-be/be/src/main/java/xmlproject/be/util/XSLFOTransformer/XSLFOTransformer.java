@@ -76,10 +76,10 @@ public class XSLFOTransformer {
         out.close();
 
     }
-
+/*
     public static void main(String[] args) throws Exception {
         new XSLFOTransformer().generatePDF("src/main/resources/data/xslfo/example1.xml", "src/main/resources/data/xslfo/article-fo.xsl", "src/main/resources/data/xslfo/article-output.pdf");
         
-    }
+    }*/
 
 }

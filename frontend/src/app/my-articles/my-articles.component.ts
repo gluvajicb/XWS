@@ -126,5 +126,8 @@ export class MyArticlesComponent implements OnInit {
     this.router.navigate(['/edit-article/' + id]);
 
   }
+  reviews(id:string) {
+    this.router.navigate(['/reviews/' + id]);
+  }
 
 }
