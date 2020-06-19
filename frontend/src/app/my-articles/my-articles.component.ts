@@ -48,7 +48,7 @@ export class MyArticlesComponent implements OnInit {
 
     //console.log(searchParams_JSON)
 
-    this.ArticleService.searchArticle(searchParams_JSON).subscribe(
+    this.ArticleService.searchMyArticle(searchParams_JSON).subscribe(
       result => {
 //        this.articles = result
         this.articles.splice(0, this.articles.length)

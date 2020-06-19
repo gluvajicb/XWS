@@ -344,7 +344,7 @@ public class ProcessRepository {
 		}
 		
 		User reviewer = userRepository.findByUsername(username);
-        String xQuery = "//process[./article_id=\"" + articleId + "\"" + " and ./reviews/review_element[reviewer_id = '" + reviewer.getID() + "']]/review/review_element/review_id/text()";
+        String xQuery = "//process[article_id=\"" + articleId + "\"" + "]/reviews/review/review_element[reviewer_id = '" + reviewer.getID() + "']/review_id/text()";
         XMLResource res = null;
         String retVal = "";
         try {

@@ -37,12 +37,12 @@ public class ArticleController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_XML_VALUE
     )
-	public ResponseEntity<Boolean> createArticle(@RequestBody(required = true) String articleDTO) {
+	public ResponseEntity<String> createArticle(@RequestBody(required = true) String articleDTO) {
 		try {
-			articleService.save(articleDTO);
-			return new ResponseEntity<Boolean>(HttpStatus.CREATED);
+			String ret =articleService.save(articleDTO);
+			return new ResponseEntity<String>(ret, HttpStatus.CREATED);
 		} catch (Exception e) {
-			return new ResponseEntity<Boolean>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -115,6 +115,12 @@ public class ArticleController {
 		public ResponseEntity< List<String>> search(@RequestBody SearchDTO dto) throws Exception{
 		 System.out.println(dto.getAbst() + " " + dto.getAuthor() + " " + dto.getTitle());
 		 List<String> retVal = articleService.searchArticles(dto.getAbst(), dto.getTitle(), dto.getKeyword(), dto.getAuthor(), dto.getSection(), dto.getStatus());
+			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
+		}
+	 @PostMapping(value="/search-my", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity< List<String>> searchMy(@RequestBody SearchDTO dto) throws Exception{
+		 System.out.println(dto.getAbst() + " " + dto.getAuthor() + " " + dto.getTitle());
+		 List<String> retVal = articleService.searchMyArticles(dto.getAbst(), dto.getTitle(), dto.getKeyword(), dto.getAuthor(), dto.getSection(), dto.getStatus());
 			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
 		}
 	 

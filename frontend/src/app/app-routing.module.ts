@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'edit-article/:id', component: EditArticleComponent, canActivate: [AuthGuard]}, // Article ID
-  {path: 'add-coverletter', component: AddCoverletterComponent, canActivate: [AuthGuard]},
+  {path: 'add-coverletter/:id', component: AddCoverletterComponent, canActivate: [AuthGuard]},
   {path: 'search', component: SearchComponent, canActivate: [AuthGuard]},
   {path: 'view/article/:id', component: ViewArticleComponent, canActivate: [AuthGuard]}, // Article ID
   {path: 'view/coverletter/:id', component: ViewCoverletterComponent, canActivate: [AuthGuard]}, // CoverLetter ID
