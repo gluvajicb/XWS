@@ -37,7 +37,7 @@ export class AddCoverletterComponent implements OnInit {
       text: {
         hasText: true
       }
-    
+
     }
 
   };
@@ -53,7 +53,7 @@ export class AddCoverletterComponent implements OnInit {
 
   start() {
 
-      const xml = '<coverLetter>' +
+      const xml = '<coverLetter xmlns=\'http://www.uns.ac.rs/XMLtim/CoverLetter\' xmlns:msb=\'http://www.uns.ac.rs/XMLtim/CoverLetter\'>' +
                       '<title></title>' +
                       '<articleId> '+ this.id +'</articleId>' +
                       '<submission_date></submission_date>' +
