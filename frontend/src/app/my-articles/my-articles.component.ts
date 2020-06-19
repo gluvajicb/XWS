@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleViewComponent } from '../article-view/article-view.component';
 import { ArticleService } from '../services/article.service';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
+import {} from 'xml2js'
+
 
 @Component({
   selector: 'app-my-articles',
@@ -11,12 +16,14 @@ import { ArticleService } from '../services/article.service';
 
 export class MyArticlesComponent implements OnInit {
 
-  constructor(private ArticleService: ArticleService) { }
+  constructor(private ArticleService: ArticleService,
+              private router: Router,
+              private fb: FormBuilder) { }
   status: String;
   articles: JSON[];
 
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.articles = [];
     this.status = "accepted";
     this.getArticles();
@@ -39,7 +46,7 @@ export class MyArticlesComponent implements OnInit {
                          "status": this.status
                      };
 
-    console.log(searchParams_JSON)
+    //console.log(searchParams_JSON)
 
     this.ArticleService.searchArticle(searchParams_JSON).subscribe(
       result => {
@@ -47,45 +54,50 @@ export class MyArticlesComponent implements OnInit {
         console.log("Rezultat ispod")
         console.log(result)
 
-        /* ... */
-        let parseString = require('xml2js').parseString;
-        let i;
-        this.articles.splice(0, this.articles.length)
-        for (i = 0; i < result.length; i++) {
-          console.log(result[i]);
-          let res;
-          let authors = [];
-          let keywords = [];
-          
-          parseString(result[i], function (err, result1) {
-            
-            console.log(result1)
+       /* */
+       let parseString = require('xml2js').parseString;
+       let i;
+       for (i = 0; i < result.length; i++) {
+         console.log(result[i]);
+         let res;
+         let authors = [];
+         let keywords = [];
+         
+         parseString(result[i], function (err, result1) {
+           
+           console.log(result1)
 
-            let j, k;
-            let authors = []
-            for(j = 0; j < result1["ns1:article"]["ns1:authors"][0]["ns1:author"].length; j ++){
+           let j, k;
+           let authors = []
+           for(j = 0; j < result1["ns1:article"]["ns1:authors"][0]["ns1:author"].length; j ++){
 
-              authors[j] = result1["ns1:article"]["ns1:authors"][0]["ns1:author"][j]["ns1:name"] + " " + result1["ns1:article"]["ns1:authors"][0]["ns1:author"][j]["ns1:surname"];
-            }
-            if(result1["ns1:article"]["ns1:abstract"][0]["ns1:keywords"] !== undefined) {
-              for(k = 0; k < result1["ns1:article"]["ns1:abstract"][0]["ns1:keywords"].length; k++){
+             authors[j] = result1["ns1:article"]["ns1:authors"][0]["ns1:author"][j]["ns1:name"] + " " + result1["ns1:article"]["ns1:authors"][0]["ns1:author"][j]["ns1:surname"];
+           }
+           if(result1["ns1:article"]["ns1:abstract"][0]["ns1:keywords"] !== undefined) {
+             for(k = 0; k < result1["ns1:article"]["ns1:abstract"][0]["ns1:keywords"].length; k++){
 
-                keywords[k] = result1["ns1:article"]["ns1:abstract"][0]["ns1:keywords"][k]["ns1:keyword"];
-              }
-            }
-            
-            let retVal = {
-              "title": result1["ns1:article"]["ns1:title"],
-              "authors": authors,
-              "keywords" : keywords
-            }
-            res = retVal
-          });
+               keywords[k] = result1["ns1:article"]["ns1:abstract"][0]["ns1:keywords"][k]["ns1:keyword"];
+             }
+           }
+           
+           let retVal = {
+             "title": result1["ns1:article"]["ns1:title"],
+             "authors": authors,
+             "keywords" : keywords
+           }
+           res = retVal
+         });
 
-          this.articles[i] = res
-        }
-      }
-    );
+         this.articles[i] = res
+       }
+
+       console.log(this.articles)
+       console.log(this.articles[0]["ns1:article"]["ns1:abstract"][0]["ns1:keywords"][0]["ns1:keyword"][0])
+       let a = this.articles[0];
+       console.log(a["ns1:article"]["ns1:authors"])
+       
+     }
+   );
   }
 
 }
