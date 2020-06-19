@@ -232,9 +232,10 @@ export class EditArticleComponent implements OnInit {
     const xml = Xonomy.harvest();
 
     console.log(xml);
+    xml.split("<").join("<ns1:")
     this.ArticleService.update(xml as string, this.id).subscribe(
       result => {
-        this.router.navigate(['home']);
+        this.router.navigate(['/my-articles']);
       }
     );
   }

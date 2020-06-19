@@ -106,19 +106,25 @@ export class MyArticlesComponent implements OnInit {
   submit(id: string) {
     this.ArticleService.submit(id).subscribe(
       result => { 
-        this.getArticles();
+        
       }
     );
+    this.getArticles();
     console.log(id)
   }
 
   delete(id: string) {
     this.ArticleService.delete(id).subscribe(
       result => { 
-        this.getArticles();
       }
     );
+    this.getArticles();
     console.log(id)
+  }
+
+  edit(id: string) {
+    this.router.navigate(['/edit-article/' + id]);
+
   }
 
 }

@@ -11,6 +11,9 @@
   </li>
 
   <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#revising" role="tab" aria-controls="revising" aria-selected="false" (click)="changeStatus('revising')">Revising</a>
+  </li>
+  <li class="nav-item">
     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#submitted" role="tab" aria-controls="submitted" aria-selected="false" (click)="changeStatus('submitted')">Submitted</a>
   </li>
 </ul>
@@ -31,6 +34,10 @@
   <div *ngIf="status == 'accepted'" class="mt-5">
     <button (click)="submit(item.id)" type="button" class="btn btn-primary mr-3">Submit</button>
     <button (click)="delete(item.id)" type="button" class="btn btn-primary">Delete</button>
+  </div>
 
+  <div *ngIf="status == 'revising'" class="mt-5">
+    <button (click)="edit(item.id)" type="button" class="btn btn-primary mr-3">Edit Article</button>
+    <button (click)="delete(item.id)" type="button" class="btn btn-primary">Delete</button>
   </div>
 </div>
