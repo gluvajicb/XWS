@@ -1,0 +1,32 @@
+<h1 class="mt-5">Reviews for an Article:</h1>
+
+<div class="article-details" *ngFor="let item of reviews; let i = index" >
+    <h3>Review: {{i + 1}}</h3> <br>
+
+    Overall Recommendation: 
+    <ul>
+        <li>{{item.overall_recommendation}}</li>
+    </ul>
+    <br />
+    Comments:
+    <ul>
+        <li>{{item.comments}}</li>
+    </ul>
+    <br />
+    Confidential-Comments:
+    <ul>
+        <li>{{item.confidential-comments}}</li>
+    </ul>
+    <br />
+    <!--
+    Keywords: 
+    <div *ngIf="item.keywords">
+        <ul *ngFor="let keyword of item.keywords; let j = index">
+            <li>{{keyword}}</li>
+        </ul>
+    </div>
+
+    -->
+    
+    
+  </div>

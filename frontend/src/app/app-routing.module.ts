@@ -16,6 +16,7 @@ import { ViewReviewComponent } from './view-review/view-review.component';
 import {AuthGuard} from './helpers/AuthGuard';
 import { NewArticlesComponent } from './new-articles/new-articles.component';
 import { ReviewedArticlesComponent } from './reviewed-articles/reviewed-articles.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: 'view/review/:id', component: ViewReviewComponent, canActivate: [AuthGuard]}, // Review ID
   {path: 'new-articles', component: NewArticlesComponent, canActivate: [AuthGuard]},
   {path: 'reviewed-articles', component: ReviewedArticlesComponent, canActivate: [AuthGuard]},
+  {path: 'reviews/:id', component: ReviewsComponent, canActivate:[AuthGuard]} // Article ID
 
 ];
 

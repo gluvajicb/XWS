@@ -25,6 +25,7 @@ import {SecurityService} from './services/security/security.service';
 import {authInterceptorProviders} from './helpers/auth.interceptor';
 import { NewArticlesComponent } from './new-articles/new-articles.component';
 import { ReviewedArticlesComponent } from './reviewed-articles/reviewed-articles.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ReviewedArticlesComponent } from './reviewed-articles/reviewed-articles
     ViewCoverletterComponent,
     ViewReviewComponent,
     NewArticlesComponent,
-    ReviewedArticlesComponent
+    ReviewedArticlesComponent,
+    ReviewsComponent
   ],
   imports: [
     BrowserModule,

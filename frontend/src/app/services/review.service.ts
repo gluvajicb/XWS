@@ -22,4 +22,9 @@ export class ReviewService {
     let uri = 'http://localhost:8000/review/' + id;
     return this.http.get(uri, {headers: this.headers, responseType: 'text'});
   }
+
+  getReviewsForArticle(id: string): Observable<any> {
+    let uri = 'http://localhost:8000/review/article/' + id;
+    return this.http.get(uri, {headers: this.headers});
+  }
 }
