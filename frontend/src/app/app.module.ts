@@ -26,6 +26,7 @@ import {authInterceptorProviders} from './helpers/auth.interceptor';
 import { NewArticlesComponent } from './new-articles/new-articles.component';
 import { ReviewedArticlesComponent } from './reviewed-articles/reviewed-articles.component';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { WaitingArticlesComponent } from './waiting-articles/waiting-articles.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ReviewsComponent } from './reviews/reviews.component';
     ViewReviewComponent,
     NewArticlesComponent,
     ReviewedArticlesComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    WaitingArticlesComponent
   ],
   imports: [
     BrowserModule,

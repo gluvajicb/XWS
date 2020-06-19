@@ -17,6 +17,7 @@ import {AuthGuard} from './helpers/AuthGuard';
 import { NewArticlesComponent } from './new-articles/new-articles.component';
 import { ReviewedArticlesComponent } from './reviewed-articles/reviewed-articles.component';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { WaitingArticlesComponent } from './waiting-articles/waiting-articles.component';
 
 
 const routes: Routes = [
@@ -28,14 +29,15 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'edit-article/:id', component: EditArticleComponent, canActivate: [AuthGuard]}, // Article ID
-  {path: 'add-coverletter', component: AddCoverletterComponent, canActivate: [AuthGuard]},
+  {path: 'add-coverletter/:id', component: AddCoverletterComponent, canActivate: [AuthGuard]},
   {path: 'search', component: SearchComponent, canActivate: [AuthGuard]},
   {path: 'view/article/:id', component: ViewArticleComponent, canActivate: [AuthGuard]}, // Article ID
   {path: 'view/coverletter/:id', component: ViewCoverletterComponent, canActivate: [AuthGuard]}, // CoverLetter ID
   {path: 'view/review/:id', component: ViewReviewComponent, canActivate: [AuthGuard]}, // Review ID
   {path: 'new-articles', component: NewArticlesComponent, canActivate: [AuthGuard]},
   {path: 'reviewed-articles', component: ReviewedArticlesComponent, canActivate: [AuthGuard]},
-  {path: 'reviews/:id', component: ReviewsComponent, canActivate:[AuthGuard]} // Article ID
+  {path: 'reviews/:id', component: ReviewsComponent, canActivate:[AuthGuard]}, // Article ID
+  {path: 'waiting-articles', component: WaitingArticlesComponent, canActivate:[AuthGuard]} // Article ID
 
 ];
 

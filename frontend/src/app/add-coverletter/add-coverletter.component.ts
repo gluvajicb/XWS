@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { HttpClientModule, HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { CoverletterService } from '../services/coverletter.service';
 
@@ -13,9 +13,9 @@ declare var Xonomy: any;
 export class AddCoverletterComponent implements OnInit {
 
   private headers = new HttpHeaders({'Content-Type': 'application/xml'});
-
+  id :any;
   constructor(private CoverLetterService: CoverletterService,
-              private router: Router) { }
+              private router: Router, private route : ActivatedRoute) { }
 
 
   docSpec = {
@@ -43,14 +43,19 @@ export class AddCoverletterComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
+
     this.start();
+
   }
 
   start() {
 
       const xml = '<coverLetter>' +
                       '<title></title>' +
-                      '<articleId></articleId>' +
+                      '<articleId> '+ this.id +'</articleId>' +
                       '<submission_date></submission_date>' +
                       '<text></text>' +
                   '</coverLetter>'

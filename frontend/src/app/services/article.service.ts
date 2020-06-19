@@ -60,6 +60,11 @@ export class ArticleService {
     return this.http.post(uri, searchParams, {headers: this.headers_json});
   }
 
+  searchMyArticle(searchParams: any): Observable<any> { // Promenio sam sa Observable<string[]> na Observable<any>
+    let uri = 'http://localhost:8000/article/search-my'
+    return this.http.post(uri, searchParams, {headers: this.headers_json});
+  }
+
   getPDF(id: string): Observable<any> {
 
     const httpOptions = {

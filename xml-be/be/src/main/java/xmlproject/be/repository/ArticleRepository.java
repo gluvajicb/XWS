@@ -15,6 +15,8 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.catalina.util.ResourceSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
@@ -26,6 +28,7 @@ import org.xmldb.api.modules.XMLResource;
 import java.util.ArrayList;
 
 import rs.ac.uns.xmltim.article.Article;
+import rs.ac.uns.xmltim.user.User;
 import xmlproject.be.util.Authentication.AuthenticationUtilities;
 import xmlproject.be.util.Authentication.AuthenticationUtilities.ConnectionProperties;
 import xmlproject.be.util.Exist.RetriveData;
@@ -38,23 +41,36 @@ public class ArticleRepository {
 	@Autowired
 	RetriveData existRetrieve;
 
-
+	@Autowired
+	UserRepository userRepository;
+	
 	public static String articleCollectionId = "/db/XWS/article";
 	public static String articleSchemaPath = "src/main/resources/data/Article.xsd";
 
 	public String save(String articleXML) throws Exception {
 		String Id = generateNewId();
 		Article coverLetter = null;
-		
+		System.out.println("aaa");
+
+		String username;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+		  username = ((UserDetails)principal).getUsername();
+		} else {
+		  username = principal.toString();
+		  
+		}
+		User reviewer = userRepository.findByUsername(username);
+
 		try {
 
 			JAXBContext jaxbContext = JAXBContext.newInstance(Article.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			StringReader sr = new StringReader(articleXML);
 			
-
 			coverLetter = (Article) unmarshaller.unmarshal(sr);
 			coverLetter.setID(Id);
+			coverLetter.setUserId(reviewer.getID());
 			coverLetter.setStatus("in_progress");
 			System.out.println(coverLetter.getID());
 			System.out.println(coverLetter.getID());
@@ -383,6 +399,14 @@ public class ArticleRepository {
 		List<String> retVal = new ArrayList<>();
 		XMLResource ret = null;
 
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+		  String username = ((UserDetails)principal).getUsername();
+		} else {
+		  String username = principal.toString();
+			System.out.println(username);
+		}
+		
 		try {
 			org.xmldb.api.base.ResourceSet result = existRetrieve.executeXPathExpression(articleCollectionId, xQuery,
 					XUpdateTemplate.TARGET_NAMESPACE + "/Article");
@@ -402,6 +426,48 @@ public class ArticleRepository {
 		return retVal;
 	}
 	
+	
+	public List<String> searchMyArticles(String abst, String title, String keyword, String author, String section, String status) throws Exception {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+		  username = ((UserDetails)principal).getUsername();
+		} else {
+		  username = principal.toString();
+		  
+		}
+		
+		User reviewer = userRepository.findByUsername(username);
+		
+		String xQuery = "//article[status=\"" + status + "\""
+				+ " and ./user_id=\"" + reviewer.getID() + "\" and (./abstract/paragraph[text[contains(text(), '" + abst + "')]] "
+				+ "or ./title[contains(text(), '" + title + "')] "
+				+ "or ./abstract/keywords[keyword[contains(text(), '" + keyword + "')]]"
+				+ " or concat(./authors/author/name,\" \",./authors/author/surname)[contains(., '"+ author + "')] "
+				+ "or ./sections/section/title[contains(text(), '" + section + "')] or ./sections/section/paragraph[text[contains(text(), '" + section + "')]])]";		
+		
+		System.out.println("iuso");
+		List<String> retVal = new ArrayList<>();
+		XMLResource ret = null;
+
+		try {
+			org.xmldb.api.base.ResourceSet result = existRetrieve.executeXPathExpression(articleCollectionId, xQuery,
+					XUpdateTemplate.TARGET_NAMESPACE + "/Article");
+			ResourceIterator it = result.getIterator();
+			Resource res = null;
+			while (it.hasMoreResources()) {
+				ret = (XMLResource) it.nextResource();
+				System.out.println(ret.getContent().toString());
+
+				retVal.add(ret.getContent().toString());
+				System.out.println(retVal.size() + "SIZEE");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return retVal;
+	}
 	public List<String> findByAuthorUsername(String username) throws XMLDBException {
 		String xQuery = "//article[status=\"" + "in_progress" + "\"" + " and ./authors/author[@username=\"" + username + "\"" + "]]";
 		 List<String> retVal = new ArrayList<>();

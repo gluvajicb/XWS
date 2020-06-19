@@ -1,0 +1,20 @@
+<div class="article-details" *ngFor="let item of articles; let i = index" >
+    <h1>{{item.title}}</h1> <br />
+    Authors: 
+    <ul *ngFor="let author of item.authors; let j = index">
+        <li>{{author}}</li>
+    </ul>
+    <br />
+    Keywords: 
+    <div *ngIf="item.keywords">
+        <ul *ngFor="let keyword of item.keywords; let j = index">
+            <li>{{keyword}}</li>
+        </ul>
+    </div>
+   
+      <button (click)="view(item.id)" type="button" class="btn btn-dark mr-3">View Article</button>
+      <a href="#" (click)="createAndOpenFile()" download="file.xml">Donwload XML</a>
+      <button (click)="review(item.id)" type="button" class="btn btn-dark ml-5">Add Reviews</button>
+  
+  </div>
+  

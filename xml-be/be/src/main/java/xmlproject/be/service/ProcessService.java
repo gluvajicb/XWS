@@ -33,8 +33,8 @@ public class ProcessService implements ProcesServiceImplementation{
 		return processRepository.findById(id);
 	}
 	
-	public  List<String> getReviewsForUser(String reviewerId) throws Exception {
-		return processRepository.getReviewsForUser(reviewerId);
+	public  List<String> getReviewsForUser() throws Exception {
+		return processRepository.getReviewsForUser();
 	}
 	
 	public String submitReview(String reviewId, String processID) throws Exception {
@@ -43,5 +43,9 @@ public class ProcessService implements ProcesServiceImplementation{
 	
 	public List<String> findAllArticlesReviews(String articleId) throws Exception{
 		return processRepository.findAllArticlesReviews(articleId);
+	}
+	
+	public String findReviewByArticleId(String articleId) throws Exception{
+		return processRepository.findReviewByArticleId(articleId);
 	}
 }

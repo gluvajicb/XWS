@@ -70,6 +70,11 @@ public class ArticleService implements ArticleServiceImplementation {
 		return articleRepository.searchArticles(abst, title, keyword, author, section, status);
 	}
 	
+	public  List<String> searchMyArticles(String abst, String title,String keyword,String author,String section, String status) throws Exception {
+		return articleRepository.searchMyArticles(abst, title, keyword, author, section, status);
+	}
+	
+	
 	public String findByIdHTML(String id) throws Exception {
 		String coverLetter = articleRepository.findById(id);
 		if(coverLetter == null){

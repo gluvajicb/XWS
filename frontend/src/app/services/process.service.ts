@@ -17,5 +17,13 @@ export class ProcessService {
     return this.http.post('http://localhost:8000/process/create', newProcess, {headers: this.headers, responseType: 'text'});
   }
 
+  getArticlesForUser(): Observable<any> {
+    return this.http.get('http://localhost:8000/process/user', {headers: this.headers});
+  }
+
+  findReviewByArticleId(id: string): Observable<any> {
+    return this.http.get('http://localhost:8000/process/review/article/' + id, {headers: this.headers});
+  }
+
 
 }
