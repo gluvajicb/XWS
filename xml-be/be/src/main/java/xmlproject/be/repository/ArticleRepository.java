@@ -89,7 +89,7 @@ public class ArticleRepository {
 			System.out.println(articleXML);
 			article = (Article) unmarshaller.unmarshal(sr);
 			article.setID(id);
-
+			article.setStatus("in_progress");
 			System.out.println(article.getID());
 			JAXBContext context = JAXBContext.newInstance(Article.class);
 			Marshaller marshaller = context.createMarshaller();

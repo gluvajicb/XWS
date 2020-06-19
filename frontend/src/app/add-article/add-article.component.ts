@@ -250,7 +250,7 @@ export class AddArticleComponent implements OnInit {
     console.log(xml);
     this.ArticleService.add(xml as string).subscribe(
       result => {
-        this.router.navigate(['home']);
+        this.router.navigate(['/my-articles']);
       }
     );
   }

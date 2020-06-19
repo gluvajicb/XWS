@@ -30,6 +30,16 @@ export class ArticleService {
     return this.http.get(uri, {headers: this.headers, responseType: 'text'});
   }
 
+  submit(id: string): Observable<any> {
+    let uri = 'http://localhost:8000/article/' + id+'/submit';
+    return this.http.post(uri, {headers: this.headers, responseType: 'text'});
+  }
+
+  delete(id: string): Observable<any> {
+    let uri = 'http://localhost:8000/article/delete/' + id;
+    return this.http.post(uri, {headers: this.headers, responseType: 'text'});
+  }
+
   getAllSubmitted(): Observable<any> {
     let uri = 'http://localhost:8000/article/submitted'
     return this.http.get(uri, {headers: this.headers});

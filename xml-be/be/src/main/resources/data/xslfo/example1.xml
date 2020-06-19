@@ -1,0 +1,32 @@
+<ns1:article xmlns:ns1="http://www.uns.ac.rs/XMLtim/Article" ns1:ID="articleeb100e40-b6f6-4e30-acc0-89eed4766ef2" version="0.0">
+    <ns1:title>PRVI RADD</ns1:title>
+    <ns1:publisher>Nina public</ns1:publisher>
+    <ns1:authors>
+        <ns1:author username="ninacar1">
+            <ns1:name>NIkolna</ns1:name>
+            <ns1:surname>Petrovic</ns1:surname>
+            <ns1:university>
+                <ns1:name>FTN</ns1:name>
+                <ns1:address>NTF</ns1:address>
+            </ns1:university>
+        </ns1:author>
+    </ns1:authors>
+    <ns1:abstract>
+        <ns1:paragraph>
+            <ns1:text>djsdijofijsdiojiodfjisd</ns1:text>
+        </ns1:paragraph>
+        <ns1:keywords>
+            <ns1:keyword>kiskis</ns1:keyword>
+        </ns1:keywords>
+    </ns1:abstract>
+    <ns1:sections>
+        <ns1:section>
+            <ns1:title>SEC1</ns1:title>
+            <ns1:paragraph>
+                <ns1:text/>
+            </ns1:paragraph>
+        </ns1:section>
+    </ns1:sections>
+    <ns1:references/>
+    <ns1:status>in_progress</ns1:status>
+</ns1:article>
