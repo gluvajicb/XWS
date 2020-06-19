@@ -1,13 +1,7 @@
-<div *ngIf="url" style="margin-top: 25%;">
-    <p>{{url}}</p>
-</div>
-
-<div>
-    <label> Pdf src </label>
-    <input (change)="onFileSelected()" type="file" id="file">
-    <input [(ngModel)]="page" type="text" id="page">
+<div class="mt-5 ml-5">
+    Page number: <input [(ngModel)]="page" type="text" id="page">
   </div>
-  <pdf-viewer class="mt-5 small-view" [src]="pdfSrc"
+  <pdf-viewer class="mt-5" [src]="pdfSrc"
     [render-text]="true"
     [page]="page" 
     [show-all]="false"

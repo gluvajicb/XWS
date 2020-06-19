@@ -30,9 +30,9 @@ export class ArticleService {
     return this.http.get(uri, {headers: this.headers, responseType: 'text'});
   }
 
-  searchArticle(searchParams: any): Observable<any> {
+  searchArticle(searchParams: any): Observable<string[]> {
     let uri = 'http://localhost:8000/article/search'
-    return this.http.post(uri, searchParams, {headers: this.headers_json, responseType: 'text'})
+    return this.http.post(uri, searchParams, {headers: this.headers_json})
   }
 
   getPDF(id: string): Observable<any> {
@@ -42,6 +42,6 @@ export class ArticleService {
        // 'responseType'  : 'blob' as 'json'        //This also worked
     };
 
-    return this.http.get(`http://localhost:8000/getArticle/PDF/${id}`, httpOptions);
+    return this.http.get(`http://localhost:8000/article/getArticle/PDF/${id}`, httpOptions);
   }
 }

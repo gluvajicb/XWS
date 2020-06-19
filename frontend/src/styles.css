@@ -93,3 +93,11 @@ body {
     height: 40vh;
     width: 100%;
   }
+
+  .article-details {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+
+    padding: 5vh;
+    background-color: #1a1a1a;
+  }  

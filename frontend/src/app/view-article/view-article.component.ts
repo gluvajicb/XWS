@@ -26,7 +26,7 @@ export class ViewArticleComponent implements OnInit {
               private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    //this.logArticle();
+    this.logArticle();
   }
 
   logArticle() {
@@ -38,12 +38,14 @@ export class ViewArticleComponent implements OnInit {
       .subscribe(
         res => {
           let reader = new FileReader();
+          const file = new Blob([res], {type: 'application/pdf'});
+
 
           reader.onload = (e:any) => {
             this.pdfSrc = e.target.result;
           }
 
-          reader.readAsArrayBuffer(res);
+          reader.readAsArrayBuffer(file);
         }
       );
    
