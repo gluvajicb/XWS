@@ -1,50 +1,87 @@
 package xmlproject.be.util.XSLFOTransformer;
-import java.io.BufferedOutputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
+import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
 import net.sf.saxon.TransformerFactoryImpl;
 
+@Component
 public class XSLFOTransformer {
 
     private FopFactory fopFactory;
 
     private TransformerFactory transformerFactory;
 
+    public static final String FOP_XCONF = "src/main/java/xmlproject/be/util/XSLFOTransformer/fop.xconfig";
+
     public XSLFOTransformer() throws SAXException, IOException {
 
         // Initialize FOP factory object
-        fopFactory = FopFactory.newInstance(new File("src/main/resources/data/xslfo/fop.xconf"));
+        fopFactory = FopFactory.newInstance(new File(FOP_XCONF));
 
         // Setup the XSLT transformer factory
         transformerFactory = new TransformerFactoryImpl();
     }
 
-    private void generatePDF(String xmlString, String xslFilePath, String outputFilePath) throws Exception {
+    public String generateHTML(String source, String xsltTemplatePath)
+    {
+
+        // template file
+        File tf = new File(xsltTemplatePath);
+
+        // result
+        StringWriter out = new StringWriter();
+
+        // source string
+        StringReader src = new StringReader(source);
+
+        Transformer t;
+        try {
+            t = transformerFactory.newTransformer(new StreamSource(tf));
+            Source _source = new StreamSource(src);
+            Result result = new StreamResult(out);
+            t.transform(_source, result);
+        } catch (TransformerConfigurationException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+
+        return out.toString();
+    }
+
+
+    public ByteArrayOutputStream generatePDF(String sourceStr, String xslt_fo_TemplatePath) throws Exception {
 
         // Point to the XSL-FO file
-        File xslFile = new File(xslFilePath);
+        File xslFile = new File(xslt_fo_TemplatePath);
 
         // Create transformation source
         StreamSource transformSource = new StreamSource(xslFile);
 
         // Initialize the transformation subject
-        StreamSource source = new StreamSource(new File(xmlString));
+        StreamSource source = new StreamSource(new StringReader(sourceStr));
+        // StreamSource source = new StreamSource(ssourceStr);
 
         // Initialize user agent needed for the transformation
         FOUserAgent userAgent = fopFactory.newFOUserAgent();
@@ -64,22 +101,6 @@ public class XSLFOTransformer {
         // Start XSLT transformation and FOP processing
         xslFoTransformer.transform(source, res);
 
-        // Generate PDF file
-        File pdfFile = new File(outputFilePath);
-        if (!pdfFile.getParentFile().exists()) {
-            pdfFile.getParentFile().mkdir();
-        }
-
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(pdfFile));
-        out.write(outStream.toByteArray());
-
-        out.close();
-
+        return outStream;
     }
-/*
-    public static void main(String[] args) throws Exception {
-        new XSLFOTransformer().generatePDF("src/main/resources/data/xslfo/example1.xml", "src/main/resources/data/xslfo/article-fo.xsl", "src/main/resources/data/xslfo/article-output.pdf");
-        
-    }*/
-
 }

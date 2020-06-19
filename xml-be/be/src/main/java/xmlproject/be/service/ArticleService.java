@@ -75,8 +75,8 @@ public class ArticleService implements ArticleServiceImplementation {
 		if(coverLetter == null){
 			throw new NotFoundException(id);
 		}
-		/*String clHTML = xslFoTransformer.generateHTML(coverLetter, "src/main/resources/data/xslt/article.xsl");*/
-		return "";
+		String clHTML = xslFoTransformer.generateHTML(coverLetter, "src/main/resources/data/xslt/article.xsl");
+		return clHTML;
 	}
 
 	public ByteArrayOutputStream findByIdPDF(String id) throws Exception {
@@ -85,13 +85,10 @@ public class ArticleService implements ArticleServiceImplementation {
 			throw new NotFoundException(id);
 		}
 		
-		coverLetter = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + 
-				"<?xml-stylesheet type=\"text/xsl\" href=\"article-fo.xsl\"?>" +
-				coverLetter;
+		coverLetter = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\"article-fo.xsl\"?>" + coverLetter;
 		System.out.println(coverLetter);
-		/*ByteArrayOutputStream clPDF = xslFoTransformer.generatePDF(coverLetter,
-				"src/main/resources/data/xslfo/article-fo.xsl");*/
-		return null;
+		ByteArrayOutputStream clPDF = xslFoTransformer.generatePDF(coverLetter, "src/main/resources/data/xslfo/article-fo.xsl");
+		return clPDF;
 	}
 	
 	
