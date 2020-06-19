@@ -68,4 +68,10 @@ public class ReviewController {
 		 reviewService.delete(id);
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
+	 
+	 @GetMapping(value="/article/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity< List<String>> getReviewForArticle(@PathVariable("id") String id) throws Exception{
+		 List<String> retVal = reviewService.getReviewsByArticleId(id);
+			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
+		}
 }

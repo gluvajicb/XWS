@@ -3,6 +3,7 @@ package xmlproject.be.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import antlr.collections.List;
 import xmlproject.be.repository.ArticleRepository;
 import xmlproject.be.repository.ReviewRepository;
 import xmlproject.be.service.interfaces.ReviewServiceImplementation;
@@ -30,6 +31,10 @@ public class ReviewService implements ReviewServiceImplementation{
 	
 	public String findById(String id) throws Exception {
 		return reviewRepository.findById(id);
+	}
+	
+	public java.util.List<String> getReviewsByArticleId(String articleId) throws Exception {
+		return reviewRepository.getReviewsByArticleId(articleId);
 	}
 
 }
