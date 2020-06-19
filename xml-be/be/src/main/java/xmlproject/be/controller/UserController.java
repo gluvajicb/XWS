@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import xmlproject.be.dto.UserDTO;
 import xmlproject.be.dto.UserLoginDTO;
 import xmlproject.be.dto.UserRegisterDTO;
 import xmlproject.be.security.UserTokenState;
@@ -75,6 +77,16 @@ public class UserController {
     public ResponseEntity<?> getUser() {
         try {
             List<String> users = userService.findAllXml();
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @GetMapping(value = "/reviewers", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getReviewers() {
+        try {
+            List<UserDTO> users = userService.findAllReviewers();
             return new ResponseEntity<>(users, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

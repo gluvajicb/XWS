@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { XmlParser } from '@angular/compiler';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-assign-reviewers',
@@ -8,69 +9,35 @@ import { XmlParser } from '@angular/compiler';
 })
 export class AssignReviewersComponent implements OnInit {
 
-  checkbox1: boolean = false;
-  checkbox2: boolean = false;
-  checkbox3: boolean = false;
-
+  users: any;
   private elements : string = "";
 
-  constructor() { }
+  constructor(private UserService: UserService) { }
 
   ngOnInit() {
-
+    this.getAllReviewers();
   }
 
+  getAllReviewers() {
+    this.UserService.getAllReviewers().subscribe(
+      result => {
+        this.users = result
+        let i;
+        for(i = 0; i < this.users.length; i++) {
+          this.users[i].checked = false;
+        }
+      }
+    );
+  }
   makeReviewElement(){
-
-    let reviewElement = "";
-
-    /* Ukoliko je checkbox1 == true, na this.elements dodaje novi review_element, odgovarajuci checkboxu1 */
-    if(this.checkbox1 == true)
-    {
       console.log("Ovo je ako je checkbox1 = true")
       
-      reviewElement = "<review_element>" +
+      let reviewElement = "<review_element>" +
                           "<review_id>" +
                           "</review_id>" +
                           "<reviewer_id>" +
                           "</reviewer_id>" +
                      "</review_element>"
-
-
-      this.elements += reviewElement;
-
-    }
-
-    /* Ukoliko je checkbox2 == true, na this.elements dodaje novi review_element, odgovarajuci checkboxu2 */
-    if(this.checkbox2 == true)
-    {
-      console.log("Ovo je ako je checkbox2 = true")
-
-      reviewElement = "<review_element>" +
-                          "<review_id>" +
-                          "</review_id>" +
-                          "<reviewer_id>" +
-                          "</reviewer_id>" +
-                     "</review_element>"
-
-      this.elements += reviewElement;
-    }
-
-    /* Ukoliko je checkbox3 == true, na this.elements dodaje novi review_element, odgovarajuci checkboxu3 */
-    if(this.checkbox3 == true)
-    {
-      console.log("Ovo je ako je checkbox3 = true")
-
-      reviewElement = "<review_element>" +
-                          "<review_id>" +
-                          "</review_id>" +
-                          "<reviewer_id>" +
-                          "</reviewer_id>" +
-                     "</review_element>"
-      
-      this.elements += reviewElement;
-
-    }
   }
 
   click(ev){
@@ -79,9 +46,12 @@ export class AssignReviewersComponent implements OnInit {
   }
 
   assign(){
-    this.makeReviewElement()
-
-    console.log(this.elements) //prodji kroz sve this.elements i napravi formu XML za njih gde je reviewerID je jednak eleme
+    let i;
+    for(i = 0; i < this.users.length; i++) {
+      if(this.users[i].checked) {
+        console.log(this.users[i].id)
+      }
+    }
   }
 
 }

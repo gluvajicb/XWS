@@ -158,6 +158,31 @@ public class UserRepository {
 
         return res.getContent().toString();
     }
+    
+    public List<User> findAllReviewers() throws Exception {
+        String xQuery = "//user[role=\"" + "reviewer" + "\"" + "]";
+        XMLResource res = null;
+        List<User> users = new ArrayList<>();
+
+        try {
+            org.xmldb.api.base.ResourceSet result = existRetrieve.executeXPathExpression(userCollectionId, xQuery, XUpdateTemplate.TARGET_NAMESPACE + "/User");
+            ResourceIterator it = result.getIterator();
+            while (it.hasMoreResources()) {
+                res = (XMLResource) it.nextResource();
+                JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
+                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                StringReader reader = new StringReader(res.getContent().toString());
+                users.add((User) unmarshaller.unmarshal(reader));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (res == null || res.getContent() == null)
+            return null;
+
+        return users;
+    }
 
     public User findByUsername(String username) throws Exception {
         String xml = findByUsernameXml(username);

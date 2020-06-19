@@ -18,4 +18,8 @@ export class UserService {
   getUserById(id): Observable<any> {
     return this.http.get(USER_API + id, httpOptions);
   }
+
+  getAllReviewers(): Observable<any> {
+    return this.http.get(USER_API + "reviewers", httpOptions);
+  }
 }

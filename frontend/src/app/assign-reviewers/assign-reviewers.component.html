@@ -4,36 +4,21 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">Username</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr *ngFor="let user of users">
           <th scope="row">    
-              <input value="a" (click)="click($event)" name="checkbox1" [(ngModel)]="checkbox1" type="checkbox" id="exampleCheck1">
+              <input value="{{user.username}}" type="checkbox" (change)="user.checked = !user.checked" [checked]="user.checked">
           </th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
+          <td>{{user.username}}</td>
+          <td>{{user.name}}  {{user.surname}}</td>
+          <td>{{user.email}}</td>
         </tr>
-        <tr>
-          <th scope="row">
-              <input name="checkbox2" [(ngModel)]="checkbox2" type="checkbox" id="exampleCheck1">
-          </th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">
-              <input name="checkbox3" [(ngModel)]="checkbox3" type="checkbox" id="exampleCheck1">
-          </th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
+       
       </tbody>
     </table>
 

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.uns.ac.rs/XMLtim/Article" xmlns="http://www.uns.ac.rs/XMLtim/Article">
+    <xs:element name="article">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="xs:string"/>
+
+                <xs:element name="publish_date" type="xs:date"/>
+
+                <xs:element name="publisher" type="xs:string"/>
+
+                <xs:element name="authors">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" ref="author"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="abstract"/>
+
+                <xs:element name="sections">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" ref="section"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="references">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="reference">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="publication_date" type="xs:date"/>
+                                        <xs:element name="title" type="xs:string"/>
+                                        <xs:element name="publisher">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="institution" type="xs:string"/>
+                                                  <xs:element name="city" type="xs:string"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="url" type="xs:anyURI" minOccurs="0"/>
+                                    </xs:sequence>
+                                    <xs:attribute ref="ID"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="status">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="accepted"/>
+                            <xs:enumeration value="rejected"/>
+                            <xs:enumeration value="reviewing"/>
+                            <xs:enumeration value="revising"/>
+                            <xs:enumeration value="submitted"/>
+                            <xs:enumeration value="in_progress"/>
+                            <xs:enumeration value="deleted"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+            
+            <xs:attribute ref="ID" use="required"/>
+            <xs:attribute name="version" type="xs:double" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Author">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="surname" type="xs:string"/>
+            <xs:element name="university">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="name" type="xs:string"/>
+                        <xs:element name="address" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="username" type="xs:string"/>
+    </xs:complexType>
+    <xs:element name="author" type="Author"/>
+
+    <xs:complexType name="Abstract">
+        <xs:sequence>
+            <xs:element ref="paragraph" maxOccurs="unbounded"/>
+
+            <xs:element name="keywords">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="keyword" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute ref="ID" use="required"/>
+
+    </xs:complexType>
+
+    <xs:element name="abstract" type="Abstract"/>
+
+    <xs:element name="paragraph">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="text" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="section">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="xs:string"/>
+                <xs:element ref="paragraph" maxOccurs="unbounded"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="section"/>
+                
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:attribute name="ID" type="xs:string"/>
+
+</xs:schema>

@@ -13,12 +13,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.xmltim.user.Role;
 import rs.ac.uns.xmltim.user.User;
+import xmlproject.be.dto.UserDTO;
 import xmlproject.be.dto.UserLoginDTO;
 import xmlproject.be.dto.UserRegisterDTO;
 import xmlproject.be.repository.UserRepository;
 import xmlproject.be.security.TokenHelper;
 import xmlproject.be.security.UserTokenState;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,6 +46,16 @@ public class UserService implements UserDetailsService {
 
     public List<String> findAllXml() throws Exception {
         return userRepository.findAllXml();
+    }
+    
+    public List<UserDTO> findAllReviewers() throws Exception {
+    	List<User> users = userRepository.findAllReviewers();
+    	List<UserDTO> dtos = new ArrayList<UserDTO>();
+    	for (User u : users) {
+    		dtos.add(new UserDTO(u.getUsername(), u.getName(), u.getSurname(), u.getEmail(), u.getID()));
+    	}
+    	
+    	return dtos;
     }
 
     public User findById(String id) throws Exception {
