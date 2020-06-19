@@ -36,7 +36,6 @@
                                 <fo:inline font-weight="bold">
                                     <xsl:value-of select="ns1:response" />
                                 </fo:inline>
-                                <xsl:text>),  </xsl:text>
                             </fo:block>
                         </xsl:for-each>
                     </fo:block>
