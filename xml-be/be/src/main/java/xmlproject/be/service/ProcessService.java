@@ -41,5 +41,7 @@ public class ProcessService implements ProcesServiceImplementation{
 		return processRepository.submitReview(reviewId, processID);
 	}
 	
-	
+	public List<String> findAllArticlesReviews(String articleId) throws Exception{
+		return processRepository.findAllArticlesReviews(articleId);
+	}
 }

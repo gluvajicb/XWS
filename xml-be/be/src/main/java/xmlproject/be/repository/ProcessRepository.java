@@ -27,6 +27,7 @@ import rs.ac.uns.xmltim.process.Process;
 import rs.ac.uns.xmltim.process.Process.Reviews;
 import rs.ac.uns.xmltim.process.Process.Reviews.ReviewElement;
 import rs.ac.uns.xmltim.review.Review;
+import rs.ac.uns.xmltim.user.User;
 import xmlproject.be.util.Authentication.AuthenticationUtilities;
 import xmlproject.be.util.Authentication.AuthenticationUtilities.ConnectionProperties;
 import xmlproject.be.util.Exist.RetriveData;
@@ -290,4 +291,28 @@ public class ProcessRepository {
 
 		return retVal;
 	}
+	
+    public List<String> findAllArticlesReviews(String articleId) throws Exception {
+        String xQuery = "//process[article_id=\"" + articleId + "\"" + "]/reviews/review_element/review_id/text()";
+        XMLResource res = null;
+        List<String> users = new ArrayList<>();
+
+        try {
+            org.xmldb.api.base.ResourceSet result = existRetrieve.executeXPathExpression(processCollectionId, xQuery, XUpdateTemplate.TARGET_NAMESPACE + "/Process");
+            ResourceIterator it = result.getIterator();
+            while (it.hasMoreResources()) {
+                res = (XMLResource) it.nextResource();
+                System.out.println(res.getContent().toString());
+                users.add(reviewRepository.findById(res.getContent().toString()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (res == null || res.getContent() == null)
+            return null;
+
+        return users;
+    }
+    
 }

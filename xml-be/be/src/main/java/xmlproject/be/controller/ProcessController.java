@@ -73,4 +73,10 @@ public class ProcessController {
 		 List<String> retVal = processService.getReviewsForUser(id);
 			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
 		}
+	 
+	 @GetMapping(value="/reviews/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity< List<String>> findReviewsFoArticle(@PathVariable("id") String id) throws Exception{
+		 List<String> retVal = processService.findAllArticlesReviews(id);
+			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
+		}
 }

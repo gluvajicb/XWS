@@ -88,6 +88,8 @@ public class ArticleService implements ArticleServiceImplementation {
 				"src/main/resources/data/xslfo/article-fo.xsl");
 		return clPDF;
 	}
+	
+	
 }
 
 
