@@ -20,8 +20,8 @@ public class ArticleService implements ArticleServiceImplementation {
 	@Autowired
 	private ArticleRepository articleRepository;
 
-	/*@Autowired
-	private XSLFOTransformer xslFoTransformer;*/
+	@Autowired
+	private XSLFOTransformer xslFoTransformer;
 	
 	@Override
 	public String save(String article) throws Exception {
@@ -90,8 +90,6 @@ public class ArticleService implements ArticleServiceImplementation {
 		ByteArrayOutputStream clPDF = xslFoTransformer.generatePDF(coverLetter, "src/main/resources/data/xslfo/article-fo.xsl");
 		return clPDF;
 	}
-	
-	
 }
 
 

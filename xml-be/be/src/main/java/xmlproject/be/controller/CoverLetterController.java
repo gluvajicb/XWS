@@ -23,6 +23,9 @@ import com.ibm.icu.util.GregorianCalendar;
 import rs.ac.uns.xmltim.coverletter.CoverLetter;
 import xmlproject.be.dto.CoverLetterDTO;
 import xmlproject.be.service.CoverLetterService;
+
+import java.io.ByteArrayOutputStream;
+
 @RestController
 @RequestMapping(value = "/coverLetter")
 @CrossOrigin()
@@ -30,11 +33,7 @@ public class CoverLetterController {
 	@Autowired
 	CoverLetterService coverLetterService;
 
- @RequestMapping(
-            path= "/create",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_XML_VALUE
-    )
+	@RequestMapping(path= "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Boolean> createCoverLetter(@RequestBody(required = true) String coverLetterDTO) {
 		try {
 			coverLetterService.save(coverLetterDTO);
@@ -44,31 +43,33 @@ public class CoverLetterController {
 		}
 	}
  
-		 @RequestMapping(
-		         path= "/{coverLetterId}",
-		         method = RequestMethod.GET,
-		         produces = MediaType.APPLICATION_XML_VALUE
-		 )
-		public ResponseEntity<String> getById(@PathVariable String coverLetterId) {
-			String retVal;
-			try {
-				retVal = coverLetterService.findById(coverLetterId);
-			} catch (Exception e) {
-				return new ResponseEntity<String>("", HttpStatus.NOT_FOUND);
-			}
-			return new ResponseEntity<String>(retVal, HttpStatus.OK);
+	@RequestMapping(path= "/{coverLetterId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> getById(@PathVariable String coverLetterId) {
+		String retVal;
+		try {
+			retVal = coverLetterService.findById(coverLetterId);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("", HttpStatus.NOT_FOUND);
 		}
+		return new ResponseEntity<String>(retVal, HttpStatus.OK);
+	}
 		 
-		 @PutMapping(value="/updateCoverLetter/{id}", consumes = MediaType.APPLICATION_XML_VALUE,produces = MediaType.APPLICATION_XML_VALUE)
-			public ResponseEntity<String> update(@RequestBody String dto, @PathVariable("id") String id) throws Exception {
+	@PutMapping(value="/updateCoverLetter/{id}", consumes = MediaType.APPLICATION_XML_VALUE,produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> update(@RequestBody String dto, @PathVariable("id") String id) throws Exception {
 
-				String coverLetter_ = coverLetterService.update(id, dto);
-				return new ResponseEntity<>(coverLetter_, HttpStatus.OK);
-			}
+		String coverLetter_ = coverLetterService.update(id, dto);
+		return new ResponseEntity<>(coverLetter_, HttpStatus.OK);
+	}
 		 
-		 @DeleteMapping(value="/deleteCoverLetter/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-			public ResponseEntity<String> delete(@PathVariable("id") String id) throws Exception{
-				coverLetterService.delete(id);
-				return new ResponseEntity<>(HttpStatus.OK);
-			}
+ 	@DeleteMapping(value="/deleteCoverLetter/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> delete(@PathVariable("id") String id) throws Exception{
+		coverLetterService.delete(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@GetMapping(value="/getCoverLetter/PDF/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<byte[]> getPDF(@PathVariable("id") String id) throws Exception{
+		ByteArrayOutputStream coverLetter = coverLetterService.findByIdPDF(id);
+		return new ResponseEntity<>(coverLetter.toByteArray(), HttpStatus.OK);
+	}
 }

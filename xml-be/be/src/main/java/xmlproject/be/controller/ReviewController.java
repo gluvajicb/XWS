@@ -1,5 +1,6 @@
 package xmlproject.be.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,7 @@ public class ReviewController {
 	@Autowired
 	ReviewService reviewService;
 	
-	@RequestMapping(
-            path= "/create",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_XML_VALUE
-    )
+	@RequestMapping(path= "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Boolean> create(@RequestBody(required = true) String reviewDTO) {
 		try {
 			reviewService.save(reviewDTO);
@@ -41,11 +38,7 @@ public class ReviewController {
 		}
 	}
 	
-	 @RequestMapping(
-	         path= "/{id}",
-	         method = RequestMethod.GET,
-	         produces = MediaType.APPLICATION_XML_VALUE
-	 )
+	@RequestMapping(path= "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<String> getById(@PathVariable String id) {
 		String retVal;
 		try {
@@ -56,22 +49,27 @@ public class ReviewController {
 		return new ResponseEntity<String>(retVal, HttpStatus.OK);
 	}
 	 
-	 @PutMapping(value="/update/{id}", consumes = MediaType.APPLICATION_XML_VALUE,produces = MediaType.APPLICATION_XML_VALUE)
-		public ResponseEntity<String> update(@RequestBody String dto, @PathVariable("id") String id) throws Exception {
+	@PutMapping(value="/update/{id}", consumes = MediaType.APPLICATION_XML_VALUE,produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> update(@RequestBody String dto, @PathVariable("id") String id) throws Exception {
+		String coverLetter_ = reviewService.update(id, dto);
+		return new ResponseEntity<>(coverLetter_, HttpStatus.OK);
+	}
+	 
+	@DeleteMapping(value="/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> delete(@PathVariable("id") String id) throws Exception{
+		reviewService.delete(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	 
+	@GetMapping(value="/article/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity< List<String>> getReviewForArticle(@PathVariable("id") String id) throws Exception{
+		List<String> retVal = reviewService.getReviewsByArticleId(id);
+		return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
+	}
 
-			String coverLetter_ = reviewService.update(id, dto);
-			return new ResponseEntity<>(coverLetter_, HttpStatus.OK);
-		}
-	 
-	 @DeleteMapping(value="/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> delete(@PathVariable("id") String id) throws Exception{
-		 reviewService.delete(id);
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-	 
-	 @GetMapping(value="/article/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity< List<String>> getReviewForArticle(@PathVariable("id") String id) throws Exception{
-		 List<String> retVal = reviewService.getReviewsByArticleId(id);
-			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
-		}
+	@GetMapping(value="/getReview/PDF/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<byte[]> getPDF(@PathVariable("id") String id) throws Exception{
+		ByteArrayOutputStream coverLetter = reviewService.findByIdPDF(id);
+		return new ResponseEntity<>(coverLetter.toByteArray(), HttpStatus.OK);
+	}
 }
