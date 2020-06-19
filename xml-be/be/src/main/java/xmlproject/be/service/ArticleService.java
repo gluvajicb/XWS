@@ -20,8 +20,8 @@ public class ArticleService implements ArticleServiceImplementation {
 	@Autowired
 	private ArticleRepository articleRepository;
 
-	/*@Autowired
-	private XSLFOTransformer xslFoTransformer;*/
+	@Autowired
+	private XSLFOTransformer xslFoTransformer;
 	
 	@Override
 	public String save(String article) throws Exception {

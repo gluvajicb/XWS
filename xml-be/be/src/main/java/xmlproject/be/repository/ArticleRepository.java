@@ -15,6 +15,8 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.catalina.util.ResourceSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
@@ -383,6 +385,14 @@ public class ArticleRepository {
 		List<String> retVal = new ArrayList<>();
 		XMLResource ret = null;
 
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+		  String username = ((UserDetails)principal).getUsername();
+		} else {
+		  String username = principal.toString();
+			System.out.println(username);
+		}
+		
 		try {
 			org.xmldb.api.base.ResourceSet result = existRetrieve.executeXPathExpression(articleCollectionId, xQuery,
 					XUpdateTemplate.TARGET_NAMESPACE + "/Article");

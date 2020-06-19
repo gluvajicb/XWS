@@ -14,6 +14,8 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.catalina.util.ResourceSet;
 import org.exist.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
@@ -45,6 +47,9 @@ public class ProcessRepository {
 	
 	@Autowired
 	ArticleRepository articleRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	public static String processCollectionId = "/db/XWS/process";
 	public static String processSchemaPath = "src/main/resources/data/Process.xsd";
@@ -267,8 +272,20 @@ public class ProcessRepository {
 		return processId;
 	}
 	
-	public List<String> getReviewsForUser(String reviewerId) throws Exception {
-		String xQuery = "/process/reviews/review_element[reviewer_id = '" + reviewerId + "']/review_id//text()";
+	public List<String> getReviewsForUser() throws Exception {
+		String reviewerId = "";
+		String username;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+		  username = ((UserDetails)principal).getUsername();
+		} else {
+		  username = principal.toString();
+		  
+		}
+		
+		User reviewer = userRepository.findByUsername(username);
+
+		String xQuery = "/process[./reviews/review_element[reviewer_id = '" + reviewer.getID() + "']/review_id//text()]/article_id//text()";
 		List<String> retVal = new ArrayList<>();
 		String ret = null;
 		ReviewElement p = null;
@@ -281,7 +298,7 @@ public class ProcessRepository {
 				ret = it.nextResource().getContent().toString();
 				
 				
-				String review = reviewRepository.findById(ret);
+				String review = articleRepository.findById(ret);
 				retVal.add(review);
 				System.out.println(retVal.size() + "SIZEE");
 			}
@@ -313,6 +330,40 @@ public class ProcessRepository {
             return null;
 
         return users;
+    }
+    
+    public String findReviewByArticleId(String articleId) throws Exception {
+    	
+    	String username;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+		  username = ((UserDetails)principal).getUsername();
+		} else {
+		  username = principal.toString();
+		  
+		}
+		
+		User reviewer = userRepository.findByUsername(username);
+        String xQuery = "//process[./article_id=\"" + articleId + "\"" + " and ./reviews/review_element[reviewer_id = '" + reviewer.getID() + "']]/review/review_element/review_id/text()";
+        XMLResource res = null;
+        String retVal = "";
+        try {
+            org.xmldb.api.base.ResourceSet result = existRetrieve.executeXPathExpression(processCollectionId, xQuery, XUpdateTemplate.TARGET_NAMESPACE + "/Process");
+            ResourceIterator it = result.getIterator();
+            while (it.hasMoreResources()) {
+                res = (XMLResource) it.nextResource();
+
+                retVal =res.getContent().toString();
+                break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (res == null || res.getContent() == null)
+            return null;
+
+        return retVal;
     }
     
 }

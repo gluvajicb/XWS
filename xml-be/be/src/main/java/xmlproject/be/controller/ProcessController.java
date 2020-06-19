@@ -68,9 +68,9 @@ public class ProcessController {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	 
-	 @GetMapping(value="/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity< List<String>> findReviewsForUser(@PathVariable("id") String id) throws Exception{
-		 List<String> retVal = processService.getReviewsForUser(id);
+	 @GetMapping(value="/user", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity< List<String>> findReviewsForUser() throws Exception{
+		 List<String> retVal = processService.getReviewsForUser();
 			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
 		}
 	 
@@ -78,5 +78,11 @@ public class ProcessController {
 		public ResponseEntity< List<String>> findReviewsFoArticle(@PathVariable("id") String id) throws Exception{
 		 List<String> retVal = processService.findAllArticlesReviews(id);
 			return new ResponseEntity< List<String>>(retVal, HttpStatus.OK);
+		}
+	 
+	 @GetMapping(value="/review/article/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> findReviewByArticleId(@PathVariable("id") String id) throws Exception{
+		 String retVal = processService.findReviewByArticleId(id);
+			return new ResponseEntity< String >(retVal, HttpStatus.OK);
 		}
 }
